@@ -18,5 +18,4 @@ public class ProjectKursusLePKom {
         System.out.println("Hello world");
         System.out.println("Hello world");
     }
-    
 }

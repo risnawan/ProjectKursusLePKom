@@ -17,7 +17,7 @@ public class Koneksi {
     private Statement data = null;
     private Connection koneksi = null;
     
-    private String Url = "jdbs:mysql://localhost:3360/ragunan";
+    private String Url = "jdbc:mysql://localhost:3306/ragunan";
     private String DBUser = "root";
     private String DBPass = "";
 

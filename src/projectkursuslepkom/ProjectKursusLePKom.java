@@ -15,7 +15,7 @@ public class ProjectKursusLePKom {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        System.out.println("ini halamna admin");
         System.out.println("Hello world");
     }
 }

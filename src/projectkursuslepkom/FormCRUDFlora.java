@@ -5,12 +5,15 @@
  */
 package projectkursuslepkom;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author risnawan
  */
 public class FormCRUDFlora extends javax.swing.JFrame {
 
+    Koneksi connect = new Koneksi();
     /**
      * Creates new form FormCRUDFlora
      */
@@ -59,6 +62,11 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         jbUnggah.setText("Unggah Foto");
 
         jbSimpan.setText("Simpan");
+        jbSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSimpanActionPerformed(evt);
+            }
+        });
 
         jbKembali.setText("< Kembali");
 
@@ -96,11 +104,8 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jbSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)))))
+                            .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(47, 47, 47))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -110,9 +115,9 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,9 +125,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbUnggah)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,6 +160,24 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
+        // TODO add your handling code here:
+        String foto = "";
+        String query = "insert into pegawai values('"+txtIDF.getText()+"','"+txtNama.getText()
+                + "','" +txtRingkasan.getText()+"','"+txtTinggi.getText()+"','"+foto+"')";
+        try {
+            connect.getStatement().executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Record telah berhasil ditambahkan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
+        }
+    }//GEN-LAST:event_jbSimpanActionPerformed
+
+    public static String IDAuto(){
+        String a = "6";
+        return a; 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -188,6 +209,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormCRUDFlora().setVisible(true);
+                txtIDF.setText(IDAuto());
             }
         });
     }
@@ -203,7 +225,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     private javax.swing.JButton jbKembali;
     private javax.swing.JButton jbSimpan;
     private javax.swing.JButton jbUnggah;
-    private javax.swing.JTextField txtIDF;
+    private static javax.swing.JTextField txtIDF;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextArea txtRingkasan;
     private javax.swing.JTextField txtTinggi;

@@ -8,6 +8,7 @@ package projectkursuslepkom;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
@@ -23,9 +24,12 @@ public class FormCRUDFlora extends javax.swing.JFrame {
      * Creates new form FormCRUDFlora
      */
     Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    //public static String no; 
     String foto;
     public FormCRUDFlora() {
         initComponents();
+        
     }
 
     /**
@@ -52,6 +56,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtRingkasan = new javax.swing.JTextArea();
         txtTinggi = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,9 +88,18 @@ public class FormCRUDFlora extends javax.swing.JFrame {
 
         jbKembali.setText("< Kembali");
 
+        txtIDF.setFocusable(false);
+
         txtRingkasan.setColumns(20);
         txtRingkasan.setRows(5);
         jScrollPane1.setViewportView(txtRingkasan);
+
+        jButton1.setText("Auto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,8 +112,8 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(173, 173, 173))
+                            .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(292, 292, 292))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
@@ -108,10 +122,16 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(38, 38, 38)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(38, 38, 38))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGap(120, 120, 120)
+                                            .addComponent(jButton1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(10, 10, 10)
@@ -132,11 +152,12 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                            .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -220,6 +241,31 @@ public class FormCRUDFlora extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbSimpanActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(null, AutoID());
+        txtIDF.setText(AutoID());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public String AutoID(){
+        String id = "0";
+        int temp = 0;
+        String query = "select id_flora from flora where id_flora order by id_flora desc limit 1";
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                id = data.getString("id_flora");
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+        temp = Integer.parseInt(id);
+        temp = temp + 1;
+        id = String.valueOf(temp);
+        //this.no = id;
+        return id;
+    }
     /**
      * @param args the command line arguments
      */
@@ -251,12 +297,15 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormCRUDFlora().setVisible(true);
+                //txtIDF.setText(no);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -267,7 +316,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     private javax.swing.JButton jbSimpan;
     private javax.swing.JButton jbUnggah;
     private javax.swing.JLabel lFoto;
-    private javax.swing.JTextField txtIDF;
+    private static javax.swing.JTextField txtIDF;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextArea txtRingkasan;
     private javax.swing.JTextField txtTinggi;

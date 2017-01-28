@@ -5,6 +5,10 @@
  */
 package projectkursuslepkom;
 
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author risnawan
@@ -14,6 +18,10 @@ public class FormFlora extends javax.swing.JFrame {
     /**
      * Creates new form FormFlora
      */
+    Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    DefaultTableModel model = new DefaultTableModel();
+    
     public FormFlora() {
         initComponents();
     }
@@ -34,6 +42,11 @@ public class FormFlora extends javax.swing.JFrame {
         jbKembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,8 +70,18 @@ public class FormFlora extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jbTambah.setText("Tambah");
+        jbTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTambahActionPerformed(evt);
+            }
+        });
 
         jbKembali.setText("< Kembali");
+        jbKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbKembaliActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,6 +129,59 @@ public class FormFlora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahActionPerformed
+        // TODO add your handling code here:
+        new FormCRUDFlora().show();
+        this.dispose();
+    }//GEN-LAST:event_jbTambahActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbKembaliActionPerformed
+
+    public void refresh()
+    {
+        int baris = 1;
+        int i = 0;
+        String query = "select * from flora";
+        
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                baris += 1;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+        String kj;
+        String isi[][] = new String[baris][6];
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next()){
+                isi[i][0] = String.valueOf(i+1);
+                isi[i][1] = data.getString("id_flora");
+                isi[i][2] = data.getString("nama");
+                isi[i][3] = data.getString("tinggi");
+                isi[i][4] = data.getString("ringkasan");
+                isi[i][5] = data.getString("foto");
+                i++;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        String namaKolom[] = {"No", "ID Flora", "Nama", "Tinggi", "Ringkasan", "Foto","Aksi"};
+        DefaultTableModel model = new DefaultTableModel(isi, namaKolom);
+        jTable1.setModel(model);
+    }
     /**
      * @param args the command line arguments
      */
@@ -139,6 +215,7 @@ public class FormFlora extends javax.swing.JFrame {
                 new FormFlora().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

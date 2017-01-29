@@ -297,7 +297,6 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormCRUDFlora().setVisible(true);
-                //txtIDF.setText(no);
             }
         });
     }

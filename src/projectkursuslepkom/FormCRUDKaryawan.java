@@ -5,6 +5,13 @@
  */
 package projectkursuslepkom;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
+
 /**
  *
  * @author risnawan
@@ -14,6 +21,11 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     /**
      * Creates new form FormCRUDKaryawan
      */
+    Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    //public static String no; 
+    String foto = null;
+    
     public FormCRUDKaryawan() {
         initComponents();
     }
@@ -27,6 +39,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -34,17 +47,22 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jbSimpan = new javax.swing.JButton();
-        jbKembali = new javax.swing.JButton();
+        btnKembali = new javax.swing.JButton();
         txtIDP = new javax.swing.JTextField();
         txtNama = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAlamat = new javax.swing.JTextArea();
         txtNoT = new javax.swing.JTextField();
         cbJabatan = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnUnggahFoto = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("ID Pegawai");
 
@@ -57,16 +75,33 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         jLabel5.setText("Jabatan");
 
         jbSimpan.setText("Simpan");
+        jbSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSimpanActionPerformed(evt);
+            }
+        });
 
-        jbKembali.setText("< Kembali");
+        btnKembali.setText("< Kembali");
+        btnKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembaliActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtIDP.setEditable(false);
+
+        txtAlamat.setColumns(20);
+        txtAlamat.setRows(5);
+        jScrollPane1.setViewportView(txtAlamat);
 
         cbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Operator" }));
 
-        jButton1.setText("Unggah Foto");
+        btnUnggahFoto.setText("Unggah Foto");
+        btnUnggahFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnggahFotoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Foto");
@@ -78,7 +113,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbKembali)
+                .addComponent(btnKembali)
                 .addGap(59, 59, 59))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
@@ -99,7 +134,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnUnggahFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jbSimpan)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,7 +153,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnUnggahFoto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -134,7 +169,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jbSimpan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jbKembali)
+                .addComponent(btnKembali)
                 .addContainerGap())
         );
 
@@ -154,6 +189,83 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
+        // TODO add your handling code here:
+        String id = txtIDP.getText();
+        String nama = txtNama.getText();
+        String alamat = txtAlamat.getText();
+        String notelp = txtNoT.getText();
+        int jabatan = cbJabatan.getSelectedIndex();
+        String query = "insert into pegawai values('"+id+"','"+nama+"','"+alamat+"','"+notelp+"','"+jabatan+"','"+foto+"')";
+        
+        try {
+            connect.getStatement().executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jbSimpanActionPerformed
+
+    private void btnUnggahFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnggahFotoActionPerformed
+        // TODO add your handling code here:
+        String dest = "";
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+                foto = file.getName();
+                dest = file.getAbsolutePath();
+            } catch (Exception ex) {
+                System.out.println("problem accessing file" + file.getAbsolutePath());
+            }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+
+        //untuk copy file
+        File source = new File(dest);
+        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
+            try {
+                FileUtils.copyFile(source, destini);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //tampilkan gambar
+            jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectkursuslepkom/image/"+foto)));
+    }//GEN-LAST:event_btnUnggahFotoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        txtIDP.setText(AutoID());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        // TODO add your handling code here:
+        new FormPegawai().show();
+        this.dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
+
+    public String AutoID(){
+        String id = "0";
+        int temp = 0;
+        String query = "select id_pegawai from pegawai where id_pegawai order by id_pegawai desc limit 1";
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                id = data.getString("id_pegawai");
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+        temp = Integer.parseInt(id);
+        temp = temp + 1;
+        id = String.valueOf(temp);
+        //this.no = id;
+        return id;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -190,8 +302,10 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnKembali;
+    private javax.swing.JButton btnUnggahFoto;
     private javax.swing.JComboBox<String> cbJabatan;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -200,9 +314,8 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton jbKembali;
     private javax.swing.JButton jbSimpan;
+    private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextField txtIDP;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNoT;

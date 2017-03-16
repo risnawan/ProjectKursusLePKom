@@ -5,15 +5,17 @@
  */
 package projectkursuslepkom;
 
-
+import java.util.Date;
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-//import net.proteanit.sql.DbUtils;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -21,7 +23,8 @@ import javax.swing.JOptionPane;
  */
 public class daftarbiaya extends javax.swing.JFrame {
 
-    Koneksi connect;
+    
+   
     /**
      * Creates new form daftarbiaya
      */
@@ -74,7 +77,11 @@ public class daftarbiaya extends javax.swing.JFrame {
 
         jLabel5.setText("Tanggal");
 
+        tgl.setEditable(false);
+
         jLabel6.setText("No.Pembelian");
+
+        txtID.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,8 +145,8 @@ public class daftarbiaya extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-         public void AutoID(){
+       
+         public String AutoID(){
             String id = "0";
             int temp = 0;
             String query = "select id_transaksi from transaksi where id_transaksi order by id_transaksi desc limit 1";
@@ -147,7 +154,9 @@ public class daftarbiaya extends javax.swing.JFrame {
             Connection conn = (Connection)Koneksi.konek();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet rs = stm.executeQuery(query);
-            while(rs.next()){
+            
+            while(rs.next())
+            {
                 id = rs.getString("id_transaksi");
                 System.out.println(id);
                 txtID.setText(id);
@@ -156,7 +165,45 @@ public class daftarbiaya extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
         }
+                temp = Integer.parseInt(id);
+             temp = temp + 1;
+             id = String.valueOf(temp);
+                //this.no = id;
+                return id;
         } 
+    
+  /*   public static String AutoID(){
+       String id = "0";
+        int temp = 0;
+        String query = "select id_transaksi from fauna where id_transaksi order by id_transaksi desc limit 1";
+        try {
+            Connection conn = (Connection)j2se.Koneksi.konek();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet rs = stm.executeQuery(query);
+            
+            while(rs.next())
+            {
+                id = rs.getString("id_transaksi");
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+        temp = Integer.parseInt(id);
+        temp = temp + 1;
+        id = String.valueOf(temp);
+        //this.no = id;
+        return id;
+    } */
+         
+         
+    public void AutoTime(){
+        
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String string  = dateFormat.format(new Date());
+       // System.out.println(string);
+        tgl.setText(string);
+                 
+    } 
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -178,7 +225,9 @@ public class daftarbiaya extends javax.swing.JFrame {
                 sh = Integer.toString(total);
                 
                 //System.out.println("dewasa = "+h_dewasa+" anak = "+h_anak);
-                               
+                         
+                
+                
             }
                        
         } catch (SQLException ex) {
@@ -190,14 +239,13 @@ public class daftarbiaya extends javax.swing.JFrame {
         String query = ("insert into transaksi values"+"('"+txtID.getText()+"', '"+tgl.getText()+"',  '"+txtDewasa.getText()+"', '"+txtAnak.getText()+"')");
         
         
+        
         try {
-            
-             
-            Calendar calendar = Calendar.getInstance();
-            java.sql.Timestamp ourJavaTimestampObject = new java.sql.Timestamp(calendar.getTime().getTime());
-            
+          
+         
            
-            java.sql.Connection conn = (java.sql.Connection)Koneksi.konek();
+                     
+            java.sql.Connection conn = (java.sql.Connection)j2se.Koneksi.konek();
             java.sql.PreparedStatement pst = conn.prepareStatement(query);
             pst.execute();
             JOptionPane.showMessageDialog(rootPane, "Rp. " + sh + " Total Pembayaran", "Total Pembayaran", JOptionPane.INFORMATION_MESSAGE);
@@ -219,8 +267,11 @@ public class daftarbiaya extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         AutoID();
+        AutoTime();
     }//GEN-LAST:event_formWindowOpened
 
+    
+    
     /**
      * @param args the command line arguments
      */

@@ -15,3 +15,11 @@ Wandy																59413226			4IA05
 
 
 Pembimbing : Ahmad Hidayat,Skom
+
+#library
+
+-MySQL JDBC Driver
+
+-commons-io-2.5.jar (https://mvnrepository.com/artifact/commons-io/commons-io/2.5)
+
+-(https://drive.google.com/file/d/0BzIr4IDDKJEcdDE1YTlzbmtkMzg/view)

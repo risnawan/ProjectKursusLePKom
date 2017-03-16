@@ -12,6 +12,11 @@ import java.sql.ResultSet;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 
 
 /**
@@ -197,6 +202,13 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             try {
+                BufferedImage gambar = ImageIO.read(file);
+                ImageIcon icon = new ImageIcon(gambar);
+                lFoto.setIcon(icon);
+                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+                lFoto.setPreferredSize(imageSize);
+                lFoto.revalidate();
+                lFoto.repaint();
                 foto = file.getName();
                 dest = file.getAbsolutePath();
             } catch (Exception ex) {
@@ -206,17 +218,17 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             System.out.println("File access cancelled by user.");
         }
 
-        //untuk copy file
-        File source = new File(dest);
-        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
-            try {
-                FileUtils.copyFile(source, destini);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //tampilkan gambar
-            lFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectkursuslepkom/image/"+foto)));
+//        //untuk copy file
+//        File source = new File(dest);
+//        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
+//            try {
+//                FileUtils.copyFile(source, destini);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            //tampilkan gambar
+//            lFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectkursuslepkom/image/"+foto)));
     }//GEN-LAST:event_jbUnggahActionPerformed
 
     private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed

@@ -8,6 +8,7 @@ package projectkursuslepkom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,9 +18,9 @@ public class Koneksi {
     private Statement data = null;
     private Connection koneksi = null;
     
-    private String Url = "jdbc:mysql://localhost:3306/ragunan";
-    private String DBUser = "root";
-    private String DBPass = "";
+    private String Url = "jdbc:mysql://sinmaskul.esy.es:3306/u199193359_rgnan";
+    private String DBUser = "u199193359_root";
+    private String DBPass = "lepkom@123";
 
     public Koneksi(){
         try{
@@ -39,5 +40,20 @@ public class Koneksi {
     
     public Statement getStatement(){
         return data;
+    }
+    public static Connection konek () {
+        try{
+            String Url = "jdbc:mysql://localhost:3306/ragunan";
+            String DBUser = "root";
+            String DBPass = "";
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            Connection conn = DriverManager.getConnection(Url, DBUser, DBPass);
+            return conn;
+        }
+        catch(SQLException ex){
+            System.out.println("Error : "+ex);
+            System.exit(1);
+            return null;
+        }     
     }
 }

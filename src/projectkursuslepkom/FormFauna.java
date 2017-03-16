@@ -1,29 +1,49 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package projectkursuslepkom;
 
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
+//import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author risnawan
  */
-public class FormFlora extends javax.swing.JFrame {
+public class FormFauna extends javax.swing.JFrame {
 
+    Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    
+    Koneksi Kon;
+   
+    
     /**
      * Creates new form FormFlora
      */
-    Koneksi connect = new Koneksi();
-    ResultSet data = null;
-    DefaultTableModel model = new DefaultTableModel();
-    
-    public FormFlora() {
+    public FormFauna() {
         initComponents();
+        
+          Tampilan();
+    }
+    
+    private void Tampilan() {
+        try {
+            Connection conn = (Connection)Koneksi.konek();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet rs = stm.executeQuery("select * from fauna");
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -42,31 +62,27 @@ public class FormFlora extends javax.swing.JFrame {
         jbKembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Flora", "Nama Flora", "Ringkasan", "Tinggi", "Aksi"
+                "ID Fauna", "Nama Fauna", "Ringkasan", "Tinggi", "Foto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jbTambah.setText("Tambah");
@@ -77,11 +93,6 @@ public class FormFlora extends javax.swing.JFrame {
         });
 
         jbKembali.setText("< Kembali");
-        jbKembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbKembaliActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,57 +142,8 @@ public class FormFlora extends javax.swing.JFrame {
 
     private void jbTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahActionPerformed
         // TODO add your handling code here:
-        new FormCRUDFlora().show();
-        this.dispose();
     }//GEN-LAST:event_jbTambahActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        refresh();
-    }//GEN-LAST:event_formWindowOpened
-
-    private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jbKembaliActionPerformed
-
-    public void refresh()
-    {
-        int baris = 1;
-        int i = 0;
-        String query = "select * from flora";
-        
-        try {
-            data = connect.getStatement().executeQuery(query);
-            while(data.next())
-            {
-                baris += 1;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "error");
-        }
-        String kj;
-        String isi[][] = new String[baris][6];
-        try {
-            data = connect.getStatement().executeQuery(query);
-            while(data.next()){
-                isi[i][0] = String.valueOf(i+1);
-                isi[i][1] = data.getString("id_flora");
-                isi[i][2] = data.getString("nama");
-                isi[i][3] = data.getString("tinggi");
-                isi[i][4] = data.getString("ringkasan");
-                isi[i][5] = data.getString("foto");
-                i++;
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        String namaKolom[] = {"No", "ID Flora", "Nama", "Tinggi", "Ringkasan", "Foto","Aksi"};
-        DefaultTableModel model = new DefaultTableModel(isi, namaKolom);
-        jTable1.setModel(model);
-    }
     /**
      * @param args the command line arguments
      */
@@ -199,23 +161,23 @@ public class FormFlora extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormFlora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFauna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormFlora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFauna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormFlora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFauna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormFlora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFauna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormFlora().setVisible(true);
+                new FormFauna().setVisible(true);
             }
         });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

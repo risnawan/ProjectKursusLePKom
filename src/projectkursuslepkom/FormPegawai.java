@@ -42,12 +42,17 @@ public class FormPegawai extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jbKembali = new javax.swing.JButton();
-        jbSimpan = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Halaman Pegawai");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,10 +100,10 @@ public class FormPegawai extends javax.swing.JFrame {
             }
         });
 
-        jbSimpan.setText("Simpan");
-        jbSimpan.addActionListener(new java.awt.event.ActionListener() {
+        btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSimpanActionPerformed(evt);
+                btnTambahActionPerformed(evt);
             }
         });
 
@@ -113,7 +118,7 @@ public class FormPegawai extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbKembali)
-                            .addComponent(jbSimpan))
+                            .addComponent(btnTambah))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -123,7 +128,7 @@ public class FormPegawai extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbSimpan)
+                .addComponent(btnTambah)
                 .addGap(36, 36, 36)
                 .addComponent(jbKembali)
                 .addContainerGap())
@@ -147,15 +152,21 @@ public class FormPegawai extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbKembaliActionPerformed
 
-    private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        new FormCRUDKaryawan().show();
+        this.dispose();
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         refresh();
-    }//GEN-LAST:event_jbSimpanActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
     public void refresh()
     {
         int baris = 1;
-        int i = 1;
+        int i = 0;
         String query = "select * from pegawai";
         
         try {
@@ -172,7 +183,7 @@ public class FormPegawai extends javax.swing.JFrame {
         try {
             data = connect.getStatement().executeQuery(query);
             while(data.next()){
-                isi[i][0] = Integer.toString(i);
+                isi[i][0] = Integer.toString(i+1);
                 isi[i][1] = data.getString("id_pegawai");
                 isi[i][2] = data.getString("nama");
                 isi[i][3] = data.getString("alamat");
@@ -231,10 +242,10 @@ public class FormPegawai extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTambah;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbKembali;
-    private javax.swing.JButton jbSimpan;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,10 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
 
 
 /**
@@ -32,6 +36,9 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     ResultSet data = null;
     //public static String no; 
     String foto;
+    static Socket s;
+    static DataInputStream din;
+    static DataOutputStream dout;
     public FormCRUDFlora() {
         initComponents();
         
@@ -217,7 +224,15 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         } else {
             System.out.println("File access cancelled by user.");
         }
-
+        try
+        {
+            dout.writeUTF(foto);
+            Sender.send(2000, dest+"\\"+foto);
+        }
+        catch(Exception es)
+        {
+            System.out.println(es);
+        }
 //        //untuk copy file
 //        File source = new File(dest);
 //        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
@@ -311,6 +326,17 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                 new FormCRUDFlora().setVisible(true);
             }
         });
+        try
+        {
+            s = new Socket("127.0.0.1", 2000);
+            dout = new DataOutputStream(s.getOutputStream());
+            String pesanmasuk = "";
+            
+        }
+        catch(Exception es)
+        {
+            
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

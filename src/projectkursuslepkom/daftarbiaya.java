@@ -245,7 +245,7 @@ public class daftarbiaya extends javax.swing.JFrame {
          
            
                      
-            java.sql.Connection conn = (java.sql.Connection)j2se.Koneksi.konek();
+            java.sql.Connection conn = (java.sql.Connection)Koneksi.konek();
             java.sql.PreparedStatement pst = conn.prepareStatement(query);
             pst.execute();
             JOptionPane.showMessageDialog(rootPane, "Rp. " + sh + " Total Pembayaran", "Total Pembayaran", JOptionPane.INFORMATION_MESSAGE);

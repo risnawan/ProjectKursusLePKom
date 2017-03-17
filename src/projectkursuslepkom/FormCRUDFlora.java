@@ -6,7 +6,7 @@
 package projectkursuslepkom;
 
 import java.io.File;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import javax.swing.JFileChooser;
@@ -14,12 +14,16 @@ import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+//import java.io.BufferedInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
+//import java.io.DataInputStream;
+//import java.io.DataOutputStream;
+//import java.io.FileInputStream;
+//import java.io.OutputStream;
+//import java.net.ServerSocket;
+//import java.net.Socket;
 
 
 
@@ -29,16 +33,17 @@ import java.net.Socket;
  */
 public class FormCRUDFlora extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormCRUDFlora
-     */
     Koneksi connect = new Koneksi();
     ResultSet data = null;
-    //public static String no; 
-    String foto;
-    static Socket s;
-    static DataInputStream din;
-    static DataOutputStream dout;
+    String foto, dest;
+    
+//    static Socket s;
+//    static DataInputStream din;
+//    static DataOutputStream dout;    
+//    FileInputStream fileInputStream = null;
+//    BufferedInputStream bufferedInputStream = null;
+//    OutputStream outputStream = null;
+    
     public FormCRUDFlora() {
         initComponents();
         
@@ -204,7 +209,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
 
     private void jbUnggahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUnggahActionPerformed
         // TODO add your handling code here:
-        String dest = "";
+        dest = "";
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -224,15 +229,32 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         } else {
             System.out.println("File access cancelled by user.");
         }
-        try
-        {
-            dout.writeUTF(foto);
-            Sender.send(2000, dest+"\\"+foto);
-        }
-        catch(Exception es)
-        {
-            System.out.println(es);
-        }
+        
+//        try
+//        {
+//            dout.writeUTF(foto);
+//            /*
+//            //Sender.send(2000, dest+"\\"+foto);
+//            File file = new File (dest);
+//            byte [] byteArray  = new byte [(int)file.length()];
+//            fileInputStream = new FileInputStream(file);
+//            bufferedInputStream = new BufferedInputStream(fileInputStream);
+//            bufferedInputStream.read(byteArray,0,byteArray.length); // copied file into byteArray
+//                
+//                //sending file through socket
+//                outputStream = s.getOutputStream();
+//                System.out.println("Sending " + "( size: " + byteArray.length + " bytes)");
+//                outputStream.write(byteArray,0,byteArray.length);			//copying byteArray to socket
+//                outputStream.flush();										//flushing socket
+//                System.out.println("Done.");
+//            */
+////                if (bufferedInputStream != null) bufferedInputStream.close();
+////						if (outputStream != null) bufferedInputStream.close();
+//        }
+//        catch(Exception es)
+//        {
+//            System.out.println(es);
+//        }		
 //        //untuk copy file
 //        File source = new File(dest);
 //        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
@@ -257,10 +279,20 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         try {
             connect.getStatement().executeUpdate(query);
             JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
+            
+            //untuk copy file
+            File source = new File(dest);
+            File destini = new File("C:\\XAMPP\\htdocs\\java\\image\\"+foto);
+            try {
+                FileUtils.copyFile(source, destini);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
         }
-
+        
     }//GEN-LAST:event_jbSimpanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -290,7 +322,6 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         temp = Integer.parseInt(id);
         temp = temp + 1;
         id = String.valueOf(temp);
-        //this.no = id;
         return id;
     }
     /**
@@ -326,17 +357,15 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                 new FormCRUDFlora().setVisible(true);
             }
         });
+        /* percobaan client server agar upload file jadi dinamis
         try
         {
             s = new Socket("127.0.0.1", 2000);
-            dout = new DataOutputStream(s.getOutputStream());
-            String pesanmasuk = "";
-            
+            dout = new DataOutputStream(s.getOutputStream());   
         }
         catch(Exception es)
-        {
-            
-        }
+        {   }
+*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

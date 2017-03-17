@@ -5,6 +5,8 @@
  */
 package projectkursuslepkom;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author risnawan
@@ -16,6 +18,8 @@ public class FormAdmin extends javax.swing.JFrame {
      */
     public FormAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -27,27 +31,50 @@ public class FormAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         btnDataKaryawan = new javax.swing.JButton();
         btnDataInformasi = new javax.swing.JButton();
         btnDaftarBiayaMasuk = new javax.swing.JButton();
         btnLaporan = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kebun Binatang Ragunan");
+        setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        setLocationByPlatform(true);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        btnDataKaryawan.setText("Data Karyawan");
+        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
+
+        btnDataKaryawan.setBackground(new java.awt.Color(52, 152, 219));
+        btnDataKaryawan.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnDataKaryawan.setForeground(new java.awt.Color(255, 255, 255));
+        btnDataKaryawan.setText("Karyawan");
+        btnDataKaryawan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnDataKaryawan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataKaryawanActionPerformed(evt);
             }
         });
 
-        btnDataInformasi.setText("Data Informasi Flora/Fauna");
+        btnDataInformasi.setBackground(new java.awt.Color(52, 152, 219));
+        btnDataInformasi.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnDataInformasi.setForeground(new java.awt.Color(255, 255, 255));
+        btnDataInformasi.setText("Informasi Flora/Fauna");
         btnDataInformasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataInformasiActionPerformed(evt);
             }
         });
 
+        btnDaftarBiayaMasuk.setBackground(new java.awt.Color(52, 152, 219));
+        btnDaftarBiayaMasuk.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnDaftarBiayaMasuk.setForeground(new java.awt.Color(255, 255, 255));
         btnDaftarBiayaMasuk.setText("Daftar Biaya Masuk");
         btnDaftarBiayaMasuk.setMaximumSize(new java.awt.Dimension(125, 40));
         btnDaftarBiayaMasuk.addActionListener(new java.awt.event.ActionListener() {
@@ -56,35 +83,61 @@ public class FormAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnLaporan.setBackground(new java.awt.Color(52, 152, 219));
+        btnLaporan.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnLaporan.setForeground(new java.awt.Color(255, 255, 255));
         btnLaporan.setText("Laporan");
+
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Data");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDataKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDataInformasi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(254, 254, 254)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(110, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDataKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDataInformasi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLaporan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(66, 66, 66))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDataKaryawan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDataInformasi, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                    .addComponent(btnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDataKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDataInformasi, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLaporan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -98,12 +151,28 @@ public class FormAdmin extends javax.swing.JFrame {
 
     private void btnDataInformasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataInformasiActionPerformed
         // TODO add your handling code here:
+        new FormInformasFloraFaunai().show();
+        this.dispose();
     }//GEN-LAST:event_btnDataInformasiActionPerformed
 
     private void btnDaftarBiayaMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarBiayaMasukActionPerformed
         // TODO add your handling code here:
+        new daftarbiaya().show();
+        this.dispose();
     }//GEN-LAST:event_btnDaftarBiayaMasukActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, 
+            "Apa kamu yakin ingin kembali ke halaman login?", "Sungguh?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            new FormLogin().show();
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    
     /**
      * @param args the command line arguments
      */
@@ -138,6 +207,7 @@ public class FormAdmin extends javax.swing.JFrame {
                 new FormAdmin().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -145,5 +215,7 @@ public class FormAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnDataInformasi;
     private javax.swing.JButton btnDataKaryawan;
     private javax.swing.JButton btnLaporan;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

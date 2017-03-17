@@ -28,6 +28,8 @@ public class FormLogin extends javax.swing.JFrame {
     
     public FormLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         jLabel3.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/projectkursuslepkom/image/login.jpg")).getImage().getScaledInstance(304, 79, Image.SCALE_SMOOTH)));    
     }
 
@@ -49,6 +51,11 @@ public class FormLogin extends javax.swing.JFrame {
         setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         setLocationByPlatform(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -150,6 +157,16 @@ public class FormLogin extends javax.swing.JFrame {
             txtPassword.setText(null);
         }
     }//GEN-LAST:event_btnMasukActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, 
+            "Apa kamu yakin ingin keluar dari aplikasi?", "Sungguh?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     public boolean user(String id, String password)
     {

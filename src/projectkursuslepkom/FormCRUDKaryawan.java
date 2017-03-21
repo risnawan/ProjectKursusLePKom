@@ -355,6 +355,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     }
     
     public void tampilkanData(){
+        dest = "C:\\XAMPP\\htdocs\\java\\image\\";
         String query = "select * from pegawai where id_pegawai = "+idKaryawan;
         try {
             data = connect.getStatement().executeQuery(query);
@@ -369,6 +370,16 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                     cbJabatan.setSelectedIndex(1);
                 else
                     cbJabatan.setSelectedIndex(0);
+                
+                try {
+//                    File file = new File("C:\\XAMPP\\htdocs\\java\\image\\"+data.getString("foto"));
+//                    BufferedImage gambar = ImageIO.read(file);
+//                    ImageIcon icon = new ImageIcon(gambar);
+                    dest = dest + data.getString("foto");
+                lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            } catch (Exception ex) {
+                System.out.println("problem accessing file");
+            }
             }
         } catch (Exception e) {
             System.out.println("Ada kesalahan ID");

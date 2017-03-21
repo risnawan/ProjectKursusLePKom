@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.*;
+import static projectkursuslepkom.FormCRUDKaryawan.idKaryawan;
 
 /**
  *
@@ -214,6 +215,7 @@ public class FormPegawai extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
+        FormCRUDKaryawan.opsi = "tambah";
         new FormCRUDKaryawan().show();
         this.dispose();
     }//GEN-LAST:event_btnTambahActionPerformed
@@ -231,22 +233,28 @@ public class FormPegawai extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        new FormCRUDKaryawan().show();
-        this.dispose();
-        FormCRUDKaryawan.opsi = "edit";
-       
-        FormCRUDKaryawan.idKaryawan = model2.getValueAt(selectedRowIndex, 1).toString();
+        if(jTable1.getSelectedRow()>=0){
+            new FormCRUDKaryawan().show();
+            this.dispose();
+            FormCRUDKaryawan.opsi = "edit";
+            FormCRUDKaryawan.idKaryawan = model2.getValueAt(selectedRowIndex, 1).toString();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Sorot record terlebih dahulu");
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(null, 
-            "Apa kamu yakin ingin mengahpus record tersebut?", "Sungguh?", 
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(null, "");
-        }
-        
+        if(jTable1.getSelectedRow()>=0){
+            if (JOptionPane.showConfirmDialog(null,
+                    "Apa kamu yakin ingin mengahpus record tersebut?", "Sungguh?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                hapusRecord();
+            }}
+        else
+                JOptionPane.showMessageDialog(null, "Sorot record terlebih dahulu");
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -254,11 +262,19 @@ public class FormPegawai extends javax.swing.JFrame {
         model2 = (DefaultTableModel)jTable1.getModel();
         selectedRowIndex = jTable1.getSelectedRow();
         String id = model2.getValueAt(selectedRowIndex, 1).toString();
-        JOptionPane.showMessageDialog(null, id);
         
     }//GEN-LAST:event_jTable1MouseClicked
 
-    
+    public void hapusRecord(){
+        String query = "delete from pegawai where id_pegawai = "+ model2.getValueAt(selectedRowIndex, 1).toString();
+        try {
+            connect.getStatement().executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Record berhasil dihapus");
+            refresh();
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan");
+        }
+    }
     
     public void refresh()
     {

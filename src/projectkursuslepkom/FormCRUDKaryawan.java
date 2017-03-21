@@ -31,6 +31,14 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     //public static String no; 
     String foto = null, dest = null;
     
+    public static String idKaryawan, opsi;
+    
+//    public String getIdkaryawan()
+//    {
+//        return idKaryawan;
+//    }
+    
+    
     public FormCRUDKaryawan() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -279,7 +287,13 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtIDP.setText(AutoID());
+        if(opsi == "tambah"){
+            txtIDP.setText(AutoID());
+        }
+        else if(opsi=="edit")
+        {
+            tampilkanData();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
@@ -338,6 +352,27 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         id = String.valueOf(temp);
         //this.no = id;
         return id;
+    }
+    
+    public void tampilkanData(){
+        String query = "select * from pegawai where id_pegawai = "+idKaryawan;
+        try {
+            data = connect.getStatement().executeQuery(query);
+            if(data.next())
+            {
+                //id = data.getString("id_pegawai");
+                txtIDP.setText(data.getString("id_pegawai"));
+                txtNama.setText(data.getString("nama"));
+                txtAlamat.setText(data.getString("alamat"));
+                txtNoT.setText(data.getString("no_telp"));
+                if(data.getString("jabatan")=="1")
+                    cbJabatan.setSelectedIndex(1);
+                else
+                    cbJabatan.setSelectedIndex(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
     }
     
     /**

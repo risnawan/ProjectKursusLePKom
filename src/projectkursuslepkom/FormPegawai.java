@@ -20,7 +20,8 @@ public class FormPegawai extends javax.swing.JFrame {
     Koneksi connect = new Koneksi();
     ResultSet data = null;
     DefaultTableModel model = new DefaultTableModel();
-    
+    DefaultTableModel model2 = new DefaultTableModel();
+    int selectedRowIndex;
     
     /**
      * Creates new form FormPegawai
@@ -46,6 +47,8 @@ public class FormPegawai extends javax.swing.JFrame {
         jbKembali = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kebun Binatang Ragunan");
@@ -80,6 +83,11 @@ public class FormPegawai extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -126,6 +134,26 @@ public class FormPegawai extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Daftar Pegawai");
 
+        btnEdit.setBackground(new java.awt.Color(52, 152, 219));
+        btnEdit.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnHapus.setBackground(new java.awt.Color(52, 152, 219));
+        btnHapus.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,7 +165,12 @@ public class FormPegawai extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbKembali)
-                            .addComponent(btnTambah))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnTambah)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnHapus)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,7 +183,10 @@ public class FormPegawai extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTambah)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTambah)
+                    .addComponent(btnEdit)
+                    .addComponent(btnHapus))
                 .addGap(18, 18, 18)
                 .addComponent(jbKembali)
                 .addContainerGap())
@@ -193,6 +229,37 @@ public class FormPegawai extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        new FormCRUDKaryawan().show();
+        this.dispose();
+        FormCRUDKaryawan.opsi = "edit";
+       
+        FormCRUDKaryawan.idKaryawan = model2.getValueAt(selectedRowIndex, 1).toString();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, 
+            "Apa kamu yakin ingin mengahpus record tersebut?", "Sungguh?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "");
+        }
+        
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        model2 = (DefaultTableModel)jTable1.getModel();
+        selectedRowIndex = jTable1.getSelectedRow();
+        String id = model2.getValueAt(selectedRowIndex, 1).toString();
+        JOptionPane.showMessageDialog(null, id);
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    
+    
     public void refresh()
     {
         int baris = 1;
@@ -272,6 +339,8 @@ public class FormPegawai extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,10 +14,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 //import java.io.BufferedInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import static projectkursuslepkom.FormCRUDKaryawan.idKaryawan;
 
 //import java.io.DataInputStream;
 //import java.io.DataOutputStream;
@@ -35,7 +38,10 @@ public class FormCRUDFlora extends javax.swing.JFrame {
 
     Koneksi connect = new Koneksi();
     ResultSet data = null;
-    String foto, dest;
+    
+    String foto = null, dest = null;
+    
+    public static String idFlora, opsi;
     
 //    static Socket s;
 //    static DataInputStream din;
@@ -65,7 +71,6 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         lFoto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jbUnggah = new javax.swing.JButton();
         jbSimpan = new javax.swing.JButton();
         jbKembali = new javax.swing.JButton();
         txtIDF = new javax.swing.JTextField();
@@ -73,33 +78,49 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtRingkasan = new javax.swing.JTextArea();
         txtTinggi = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID Flora");
 
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nama Flora");
 
         lFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lFoto.setToolTipText("");
         lFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setText("Ringkasan");
-
-        jLabel5.setText("Tinggi");
-
-        jbUnggah.setText("Unggah Foto");
-        jbUnggah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbUnggahActionPerformed(evt);
+        lFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lFotoMouseClicked(evt);
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Ringkasan");
+
+        jLabel5.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Tinggi");
+
+        jbSimpan.setBackground(new java.awt.Color(52, 152, 219));
+        jbSimpan.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jbSimpan.setForeground(new java.awt.Color(255, 255, 255));
         jbSimpan.setText("Simpan");
         jbSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +128,9 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             }
         });
 
+        jbKembali.setBackground(new java.awt.Color(52, 152, 219));
+        jbKembali.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jbKembali.setForeground(new java.awt.Color(255, 255, 255));
         jbKembali.setText("< Kembali");
         jbKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,58 +138,72 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             }
         });
 
+        txtIDF.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         txtIDF.setFocusable(false);
 
+        txtNama.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+
         txtRingkasan.setColumns(20);
+        txtRingkasan.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         txtRingkasan.setRows(5);
         jScrollPane1.setViewportView(txtRingkasan);
+
+        txtTinggi.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Data Flora");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(292, 292, 292))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel5))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(38, 38, 38)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addComponent(jbUnggah))
-                                        .addComponent(lFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(173, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbKembali)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(292, 292, 292))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel5))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(38, 38, 38)
+                                            .addComponent(lFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel3)))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtIDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -179,9 +217,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
                             .addComponent(txtTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(lFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jbUnggah)))
+                        .addComponent(lFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,74 +243,14 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbUnggahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUnggahActionPerformed
-        // TODO add your handling code here:
-        dest = "";
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            try {
-                BufferedImage gambar = ImageIO.read(file);
-                ImageIcon icon = new ImageIcon(gambar);
-                lFoto.setIcon(icon);
-                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-                lFoto.setPreferredSize(imageSize);
-                lFoto.revalidate();
-                lFoto.repaint();
-                foto = file.getName();
-                dest = file.getAbsolutePath();
-            } catch (Exception ex) {
-                System.out.println("problem accessing file" + file.getAbsolutePath());
-            }
-        } else {
-            System.out.println("File access cancelled by user.");
-        }
-        
-//        try
-//        {
-//            dout.writeUTF(foto);
-//            /*
-//            //Sender.send(2000, dest+"\\"+foto);
-//            File file = new File (dest);
-//            byte [] byteArray  = new byte [(int)file.length()];
-//            fileInputStream = new FileInputStream(file);
-//            bufferedInputStream = new BufferedInputStream(fileInputStream);
-//            bufferedInputStream.read(byteArray,0,byteArray.length); // copied file into byteArray
-//                
-//                //sending file through socket
-//                outputStream = s.getOutputStream();
-//                System.out.println("Sending " + "( size: " + byteArray.length + " bytes)");
-//                outputStream.write(byteArray,0,byteArray.length);			//copying byteArray to socket
-//                outputStream.flush();										//flushing socket
-//                System.out.println("Done.");
-//            */
-////                if (bufferedInputStream != null) bufferedInputStream.close();
-////						if (outputStream != null) bufferedInputStream.close();
-//        }
-//        catch(Exception es)
-//        {
-//            System.out.println(es);
-//        }		
-//        //untuk copy file
-//        File source = new File(dest);
-//        File destini = new File("E:\\M Risnawan Budiato\\Kuliah\\semester 7\\ProjectKursusLepkom\\src\\projectkursuslepkom\\image\\"+foto);
-//            try {
-//                FileUtils.copyFile(source, destini);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            //tampilkan gambar
-//            lFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectkursuslepkom/image/"+foto)));
-    }//GEN-LAST:event_jbUnggahActionPerformed
-
     private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
         // TODO add your handling code here:
         String id = txtIDF.getText();
         String nama = txtNama.getText();
-        String tinggi = txtTinggi.getText();
         String ringkasan = txtRingkasan.getText();
-        String query = "insert into flora values('"+id+"','"+nama+"','"+tinggi+"','"+ringkasan+"','"+foto+"')";
+        String tinggi = txtTinggi.getText();
+        
+        String query = "insert into flora values('"+id+"','"+nama+"','"+ringkasan+"','"+tinggi+"','"+foto+"')";
         
         try {
             connect.getStatement().executeUpdate(query);
@@ -285,19 +261,47 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             File destini = new File("C:\\XAMPP\\htdocs\\java\\image\\"+foto);
             try {
                 FileUtils.copyFile(source, destini);
+                new FormFlora().show();
+                this.dispose();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            
+            }            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
         }
+        
+//            connect.getStatement().executeUpdate(query);
+//            JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
+//            
+//            //untuk copy file
+//            File source = new File(dest);
+//            File destini = new File("C:\\XAMPP\\htdocs\\java\\image\\"+foto);
+//            try {
+//                FileUtils.copyFile(source, destini);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            
+//            new FormPegawai().show();
+//            this.dispose();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        } 
+        
         
     }//GEN-LAST:event_jbSimpanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtIDF.setText(AutoID());
+        if(opsi=="tambah")
+        {
+            txtIDF.setText(AutoID());
+        }
+        else if(opsi == "edit")
+        {
+            tampilkanData();
+        }    
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
@@ -305,6 +309,39 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         new FormFlora().show();
         this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
+
+    private void lFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lFotoMouseClicked
+        // TODO add your handling code here:
+                dest = "";
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+                BufferedImage gambar = ImageIO.read(file);
+                ImageIcon icon = new ImageIcon(gambar);
+                
+                //lFoto.setIcon(icon);
+//                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+//                lFoto.setPreferredSize(imageSize);
+//                lFoto.revalidate();
+//                lFoto.repaint();
+                foto = file.getName();
+                dest = file.getAbsolutePath();
+                lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            } catch (Exception ex) {
+                System.out.println("problem accessing file" + file.getAbsolutePath());
+            }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+
+    }//GEN-LAST:event_lFotoMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        new FormFlora().show();
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     public String AutoID(){
         String id = "0";
@@ -323,6 +360,30 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         temp = temp + 1;
         id = String.valueOf(temp);
         return id;
+    }
+    
+    public void tampilkanData(){
+        dest = "C:\\XAMPP\\htdocs\\java\\image\\";
+        String query = "select * from flora where id_flora = "+idFlora;
+        try {
+            data = connect.getStatement().executeQuery(query);
+            if(data.next())
+            {
+                //id = data.getString("id_pegawai");
+                txtIDF.setText(data.getString("id_flora"));
+                txtNama.setText(data.getString("nama"));
+                txtTinggi.setText(data.getString("tinggi"));
+                txtRingkasan.setText(data.getString("ringkasan"));
+                try {
+                    dest = dest + data.getString("foto");
+                lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            } catch (Exception ex) {
+                System.out.println("problem accessing file");
+            }
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
     }
     /**
      * @param args the command line arguments
@@ -372,13 +433,13 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbKembali;
     private javax.swing.JButton jbSimpan;
-    private javax.swing.JButton jbUnggah;
     private javax.swing.JLabel lFoto;
     private static javax.swing.JTextField txtIDF;
     private javax.swing.JTextField txtNama;

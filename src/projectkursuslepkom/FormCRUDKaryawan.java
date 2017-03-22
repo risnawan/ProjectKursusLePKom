@@ -156,6 +156,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         cbJabatan.setForeground(new java.awt.Color(255, 255, 255));
         cbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Operator" }));
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Data Pegawai");
@@ -262,6 +263,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         String alamat = txtAlamat.getText();
         String notelp = txtNoT.getText();
         int jabatan = cbJabatan.getSelectedIndex();
+       
         String query = "insert into pegawai values('"+id+"','"+nama+"','"+alamat+"','"+notelp+"','"+jabatan+"','"+foto+"')";
         
         try {

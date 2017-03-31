@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 //import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,20 +20,24 @@ import javax.swing.JOptionPane;
  */
 public class FormFauna extends javax.swing.JFrame {
 
-    Connection conn = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
+//    Connection conn = null;
+//    ResultSet rs = null;
+//    PreparedStatement pst = null;
+//    Koneksi Kon;
     
-    Koneksi Kon;
-   
+    Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model2 = new DefaultTableModel();
+    int selectedRowIndex;
     
     /**
      * Creates new form FormFlora
      */
     public FormFauna() {
         initComponents();
-        
-          Tampilan();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
     
     private void Tampilan() {
@@ -58,10 +63,20 @@ public class FormFauna extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jbTambah = new javax.swing.JButton();
         jbKembali = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,39 +100,76 @@ public class FormFauna extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
-        jbTambah.setText("Tambah");
-        jbTambah.addActionListener(new java.awt.event.ActionListener() {
+        jbKembali.setText("< Kembali");
+        jbKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbTambahActionPerformed(evt);
+                jbKembaliActionPerformed(evt);
             }
         });
 
-        jbKembali.setText("< Kembali");
+        btnTambah.setBackground(new java.awt.Color(52, 152, 219));
+        btnTambah.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
+        btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setBackground(new java.awt.Color(52, 152, 219));
+        btnEdit.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnHapus.setBackground(new java.awt.Color(52, 152, 219));
+        btnHapus.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnTambah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHapus)
+                .addGap(241, 241, 241))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbTambah)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jbKembali)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(jbKembali))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(63, 63, 63)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbTambah)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTambah)
+                    .addComponent(btnEdit)
+                    .addComponent(btnHapus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jbKembali)
                 .addContainerGap())
         );
@@ -140,10 +192,94 @@ public class FormFauna extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahActionPerformed
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbTambahActionPerformed
+        FormCRUDKaryawan.opsi = "tambah";
+        new FormCRUDKaryawan().show();
+        this.dispose();
+    }//GEN-LAST:event_btnTambahActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbKembaliActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_formWindowOpened
+
+    public void hapusRecord(){
+        String query = "delete from pegawai where id_pegawai = "+ model2.getValueAt(selectedRowIndex, 1).toString();
+        try {
+            connect.getStatement().executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Record berhasil dihapus");
+            refresh();
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan");
+        }
+    }
+    
+    public void refresh()
+    {
+        int baris = 1;
+        int i = 0;
+        String query = "select * from fauna";
+        
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                baris += 1;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "errpr");
+        }
+        String kj;
+        String isi[][] = new String[baris][9];
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next()){
+                isi[i][0] = Integer.toString(i+1);
+                isi[i][1] = data.getString("nama");
+                isi[i][2] = data.getString("makanan");
+                isi[i][3] = data.getString("habitat");
+                isi[i][4] = data.getString("lama_hidup");
+                isi[i][5] = data.getString("penyebaran");
+                isi[i][6] = data.getString("tipe");
+                isi[i][7] = data.getString("jumlah");
+                //kj = data.getString("jabatan");
+//                if (data.getString("jabatan").contentEquals("1")){
+//                    isi[i][5] = "Admin"; 
+//                }
+//                else{
+//                    isi[i][5] = "Pegawai"; 
+//                }
+                i++;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        String namaKolom[] = {"No", "Nama", "Habitat", "Lama Hidup", "Penyebaran", "Tipe", "Jumlah"};
+        DefaultTableModel model = new DefaultTableModel(isi, namaKolom);
+        jTable1.setModel(model);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -181,10 +317,12 @@ public class FormFauna extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnTambah;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbKembali;
-    private javax.swing.JButton jbTambah;
     // End of variables declaration//GEN-END:variables
 }

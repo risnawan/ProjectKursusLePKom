@@ -151,7 +151,8 @@ public class FormAdmin extends javax.swing.JFrame {
 
     private void btnDataInformasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataInformasiActionPerformed
         // TODO add your handling code here:
-        new FormInformasFloraFaunai().show();
+//        new FormInformasFloraFaunai().show();
+        new FormFloraFauna().show();
         this.dispose();
     }//GEN-LAST:event_btnDataInformasiActionPerformed
 

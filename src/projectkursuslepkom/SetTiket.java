@@ -5,12 +5,19 @@
  */
 package projectkursuslepkom;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
+import static projectkursuslepkom.FormCRUDFlora.idFlora;
 //import net.proteanit.sql.DbUtils;
 
 /**
@@ -19,11 +26,17 @@ import javax.swing.JOptionPane;
  */
 public class SetTiket extends javax.swing.JFrame {
 
+    Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    String query="";
+    
     /**
      * Creates new form SetTiket
      */
     public SetTiket() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -146,37 +159,42 @@ public class SetTiket extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-         String query = "update harga_tiket set Dewasa = '"+dewasa.getText()+"', Anak = '"+anak.getText()+ "'";
+        if(!dewasa.getText().isEmpty() && !anak.getText().isEmpty()){
+        String query3 = "update tiket set harga = "+dewasa.getText()+" where tipe = '0'";
+        String query2 = "update tiket set harga = "+anak.getText()+" where tipe = '1'";
         try {
-            java.sql.Connection conn = (java.sql.Connection)Koneksi.konek();
-            java.sql.PreparedStatement pst = conn.prepareStatement(query);
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Record telah berhasil dirubah");
+            connect.getStatement().executeUpdate(query3);
+            connect.getStatement().executeUpdate(query2);
+            JOptionPane.showMessageDialog(null, "Berhasil");
+            new FormAdmin().show();
+            this.dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
+            JOptionPane.showMessageDialog(null, e);
+        }    
         }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
-        try {
-            Connection conn = (Connection)Koneksi.konek();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rs = stm.executeQuery("select * from harga_tiket");
-            String h_dewasa = null,h_anak = null;
-            while(rs.next()){
-                h_dewasa = rs.getString("Dewasa");
-                h_anak = rs.getString("Anak");
-                System.out.println("dewasa = "+h_dewasa+" anak = "+h_anak);
-            }
-            dewasa.setText(h_dewasa);
-            anak.setText(h_anak);
-        } catch (SQLException ex) {
-            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Connection conn = (Connection)Koneksi.konek();
+//            java.sql.Statement stm = conn.createStatement();
+//            java.sql.ResultSet rs = stm.executeQuery("select * from harga_tiket");
+//            String h_dewasa = null,h_anak = null;
+//            while(rs.next()){
+//                h_dewasa = rs.getString("Dewasa");
+//                h_anak = rs.getString("Anak");
+//                System.out.println("dewasa = "+h_dewasa+" anak = "+h_anak);
+//            }
+//            dewasa.setText(h_dewasa);
+//            anak.setText(h_anak);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+           tampilkanData();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -185,6 +203,24 @@ public class SetTiket extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void tampilkanData(){
+        query = "select * from tiket ";
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                //id = data.getString("id_pegawai");
+                if(data.getString("tipe")=="0"){
+                    dewasa.setText(data.getString("harga"));
+                }
+                else if(data.getString("tipe")=="1"){
+                    anak.setText(data.getString("harga"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+    }
     /**
      * @param args the command line arguments
      */

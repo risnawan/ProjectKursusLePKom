@@ -231,7 +231,7 @@ public class FormFlora extends javax.swing.JFrame {
     private void jbTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahActionPerformed
         // TODO add your handling code here:
         FormCRUDFlora.opsi = "tambah";
-        new FormInformasFloraFaunai().show();
+        new FormCRUDFlora().show();
         this.dispose();
     }//GEN-LAST:event_jbTambahActionPerformed
 

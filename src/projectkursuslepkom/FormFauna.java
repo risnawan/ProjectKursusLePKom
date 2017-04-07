@@ -233,7 +233,7 @@ public class FormFauna extends javax.swing.JFrame {
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
         // TODO add your handling code here:
-        new FormFloraFauna().show();
+        new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
 
@@ -248,7 +248,7 @@ public class FormFauna extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        new FormFloraFauna().show();
+        new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 

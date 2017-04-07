@@ -52,7 +52,8 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     
     public FormCRUDFauna() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);        
     }
 
     /**
@@ -355,13 +356,11 @@ public class FormCRUDFauna extends javax.swing.JFrame {
             }
             }
             
-            new FormFloraFauna().show();
+            new FormFauna().show();
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        
     }//GEN-LAST:event_jbSimpanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -379,7 +378,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
         // TODO add your handling code here:
-        new FormFloraFauna().show();
+        new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
 
@@ -407,7 +406,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        new FormFloraFauna().show();
+        new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 

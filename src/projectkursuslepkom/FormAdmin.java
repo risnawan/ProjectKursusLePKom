@@ -33,10 +33,11 @@ public class FormAdmin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnDataKaryawan = new javax.swing.JButton();
-        btnDataInformasi = new javax.swing.JButton();
+        btnInformasiFlora = new javax.swing.JButton();
         btnDaftarBiayaMasuk = new javax.swing.JButton();
         btnLaporan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnInformasiFauna = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kebun Binatang Ragunan");
@@ -62,13 +63,13 @@ public class FormAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnDataInformasi.setBackground(new java.awt.Color(52, 152, 219));
-        btnDataInformasi.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
-        btnDataInformasi.setForeground(new java.awt.Color(255, 255, 255));
-        btnDataInformasi.setText("Informasi Flora/Fauna");
-        btnDataInformasi.addActionListener(new java.awt.event.ActionListener() {
+        btnInformasiFlora.setBackground(new java.awt.Color(52, 152, 219));
+        btnInformasiFlora.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnInformasiFlora.setForeground(new java.awt.Color(255, 255, 255));
+        btnInformasiFlora.setText("Informasi Flora");
+        btnInformasiFlora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDataInformasiActionPerformed(evt);
+                btnInformasiFloraActionPerformed(evt);
             }
         });
 
@@ -93,6 +94,16 @@ public class FormAdmin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Data");
 
+        btnInformasiFauna.setBackground(new java.awt.Color(52, 152, 219));
+        btnInformasiFauna.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnInformasiFauna.setForeground(new java.awt.Color(255, 255, 255));
+        btnInformasiFauna.setText("Informasi Fauna");
+        btnInformasiFauna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformasiFaunaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,11 +118,14 @@ public class FormAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDataInformasi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnInformasiFlora, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnInformasiFauna, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(254, 254, 254)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +135,8 @@ public class FormAdmin extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDataKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDataInformasi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnInformasiFlora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInformasiFauna, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,16 +164,16 @@ public class FormAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnDataKaryawanActionPerformed
 
-    private void btnDataInformasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataInformasiActionPerformed
+    private void btnInformasiFloraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformasiFloraActionPerformed
         // TODO add your handling code here:
 //        new FormInformasFloraFaunai().show();
-        new FormFloraFauna().show();
+        new FormFlora().show();
         this.dispose();
-    }//GEN-LAST:event_btnDataInformasiActionPerformed
+    }//GEN-LAST:event_btnInformasiFloraActionPerformed
 
     private void btnDaftarBiayaMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarBiayaMasukActionPerformed
         // TODO add your handling code here:
-        new daftarbiaya().show();
+        new SetTiket().show();
         this.dispose();
     }//GEN-LAST:event_btnDaftarBiayaMasukActionPerformed
 
@@ -172,6 +187,12 @@ public class FormAdmin extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnInformasiFaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformasiFaunaActionPerformed
+        // TODO add your handling code here:
+        new FormFauna().show();
+        this.dispose();
+    }//GEN-LAST:event_btnInformasiFaunaActionPerformed
 
     
     /**
@@ -213,8 +234,9 @@ public class FormAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDaftarBiayaMasuk;
-    private javax.swing.JButton btnDataInformasi;
     private javax.swing.JButton btnDataKaryawan;
+    private javax.swing.JButton btnInformasiFauna;
+    private javax.swing.JButton btnInformasiFlora;
     private javax.swing.JButton btnLaporan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

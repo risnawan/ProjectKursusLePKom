@@ -47,8 +47,8 @@ public class SetTiket extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dewasa = new javax.swing.JTextField();
@@ -58,25 +58,34 @@ public class SetTiket extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kebun Binatang Ragunan");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        jLabel1.setText("Anak");
+        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
 
-        jLabel2.setText("Dewasa");
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Anak      Rp :");
 
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Dewasa   Rp :");
+
+        dewasa.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        dewasa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         dewasa.setMinimumSize(new java.awt.Dimension(100, 100));
-        dewasa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dewasaActionPerformed(evt);
-            }
-        });
 
+        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Harga Tiket");
 
+        jButton1.setBackground(new java.awt.Color(52, 152, 219));
+        jButton1.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,12 +93,12 @@ public class SetTiket extends javax.swing.JFrame {
             }
         });
 
-        anak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anakActionPerformed(evt);
-            }
-        });
+        anak.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        anak.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        jButton2.setBackground(new java.awt.Color(52, 152, 219));
+        jButton2.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Kembali");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,80 +106,86 @@ public class SetTiket extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel3)))
+                .addContainerGap(190, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(anak)
+                            .addComponent(dewasa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addGap(100, 100, 100))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(anak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(dewasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(jButton1)
+                .addGap(13, 13, 13)
+                .addComponent(jButton2)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(jLabel1)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(anak)
-                            .addComponent(dewasa, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton2)))
-                .addContainerGap(133, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel3)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(anak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(dewasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dewasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dewasaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dewasaActionPerformed
-
-    private void anakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anakActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anakActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(!dewasa.getText().isEmpty() && !anak.getText().isEmpty()){
-        String query3 = "update tiket set harga = "+dewasa.getText()+" where tipe = '0'";
-        String query2 = "update tiket set harga = "+anak.getText()+" where tipe = '1'";
-        try {
-            connect.getStatement().executeUpdate(query3);
-            connect.getStatement().executeUpdate(query2);
-            JOptionPane.showMessageDialog(null, "Berhasil");
-            new FormAdmin().show();
-            this.dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }    
+            String query3 = "update tiket set harga = "+dewasa.getText()+" where tipe = '0'";
+            String query2 = "update tiket set harga = "+anak.getText()+" where tipe = '1'";
+            try {
+                connect.getStatement().executeUpdate(query3);
+                connect.getStatement().executeUpdate(query2);
+                JOptionPane.showMessageDialog(null, "Berhasil");
+                new FormAdmin().show();
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }    
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Pastikan seluruh kolom terisi");
         }
         
         
@@ -178,28 +193,12 @@ public class SetTiket extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        
-//        try {
-//            Connection conn = (Connection)Koneksi.konek();
-//            java.sql.Statement stm = conn.createStatement();
-//            java.sql.ResultSet rs = stm.executeQuery("select * from harga_tiket");
-//            String h_dewasa = null,h_anak = null;
-//            while(rs.next()){
-//                h_dewasa = rs.getString("Dewasa");
-//                h_anak = rs.getString("Anak");
-//                System.out.println("dewasa = "+h_dewasa+" anak = "+h_anak);
-//            }
-//            dewasa.setText(h_dewasa);
-//            anak.setText(h_anak);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
-//        }
            tampilkanData();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new FormFauna().show();
+        new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -209,16 +208,15 @@ public class SetTiket extends javax.swing.JFrame {
             data = connect.getStatement().executeQuery(query);
             while(data.next())
             {
-                //id = data.getString("id_pegawai");
-                if(data.getString("tipe")=="0"){
+                if(data.getString("tipe").equals("0")){
                     dewasa.setText(data.getString("harga"));
                 }
-                else if(data.getString("tipe")=="1"){
+                else if(data.getString("tipe").equals("1")){
                     anak.setText(data.getString("harga"));
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ada kesalahan ID");
+            System.out.println(e);
         }
     }
     /**
@@ -266,5 +264,6 @@ public class SetTiket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

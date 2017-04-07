@@ -40,16 +40,16 @@ public class FormFauna extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
     
-    private void Tampilan() {
-        try {
-            Connection conn = (Connection)Koneksi.konek();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rs = stm.executeQuery("select * from fauna");
-//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException ex) {
-            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void Tampilan() {
+//        try {
+//            Connection conn = (Connection)Koneksi.konek();
+//            java.sql.Statement stm = conn.createStatement();
+//            java.sql.ResultSet rs = stm.executeQuery("select * from fauna");
+////            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,6 +73,9 @@ public class FormFauna extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -80,17 +83,14 @@ public class FormFauna extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "ID Fauna", "Nama Fauna", "Ringkasan", "Tinggi", "Foto"
+                "No", "ID Fauna", "Nama Fauna", "Ringkasan", "Habitat", "Lama Hidup", "Penyebaran", "Tipe", "Makanan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -98,6 +98,11 @@ public class FormFauna extends javax.swing.JFrame {
             }
         });
         jTable1.setEnabled(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jbKembali.setText("< Kembali");
@@ -194,22 +199,42 @@ public class FormFauna extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-        FormCRUDKaryawan.opsi = "tambah";
-        new FormCRUDKaryawan().show();
+        FormCRUDFauna.opsi = "tambah";
+        new FormCRUDFauna().show();
         this.dispose();
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        if(jTable1.getSelectedRow()>=0){
+            FormCRUDFauna.opsi = "edit";
+        new FormCRUDFauna().show();
+        this.dispose();
+            FormCRUDFauna.idFauna = model2.getValueAt(selectedRowIndex, 1).toString();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Sorot record terlebih dahulu");
+        
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
+        if(jTable1.getSelectedRow()>=0){
+            if (JOptionPane.showConfirmDialog(null,
+                    "Apa kamu yakin ingin mengahpus record tersebut?", "Sungguh?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                hapusRecord();
+            }}
+        else
+                JOptionPane.showMessageDialog(null, "Sorot record terlebih dahulu");
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
         // TODO add your handling code here:
-        
+        new FormFloraFauna().show();
+        this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -221,8 +246,21 @@ public class FormFauna extends javax.swing.JFrame {
         refresh();
     }//GEN-LAST:event_formWindowOpened
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        new FormFloraFauna().show();
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        model2 = (DefaultTableModel)jTable1.getModel();
+        selectedRowIndex = jTable1.getSelectedRow();
+        String id = model2.getValueAt(selectedRowIndex, 1).toString();
+    }//GEN-LAST:event_jTable1MouseClicked
+
     public void hapusRecord(){
-        String query = "delete from pegawai where id_pegawai = "+ model2.getValueAt(selectedRowIndex, 1).toString();
+        String query = "delete from fauna where id_fauna = "+ model2.getValueAt(selectedRowIndex, 1).toString();
         try {
             connect.getStatement().executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Record berhasil dihapus");
@@ -248,25 +286,19 @@ public class FormFauna extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "errpr");
         }
         String kj;
-        String isi[][] = new String[baris][9];
+        String isi[][] = new String[baris][10];
         try {
             data = connect.getStatement().executeQuery(query);
             while(data.next()){
                 isi[i][0] = Integer.toString(i+1);
-                isi[i][1] = data.getString("nama");
-                isi[i][2] = data.getString("makanan");
-                isi[i][3] = data.getString("habitat");
-                isi[i][4] = data.getString("lama_hidup");
-                isi[i][5] = data.getString("penyebaran");
-                isi[i][6] = data.getString("tipe");
-                isi[i][7] = data.getString("jumlah");
-                //kj = data.getString("jabatan");
-//                if (data.getString("jabatan").contentEquals("1")){
-//                    isi[i][5] = "Admin"; 
-//                }
-//                else{
-//                    isi[i][5] = "Pegawai"; 
-//                }
+                isi[i][1] = data.getString("id_fauna");
+                isi[i][2] = data.getString("nama");
+                isi[i][3] = data.getString("makanan");
+                isi[i][4] = data.getString("habitat");
+                isi[i][5] = data.getString("lama_hidup");
+                isi[i][6] = data.getString("penyebaran");
+                isi[i][7] = data.getString("tipe");
+                isi[i][8] = data.getString("jumlah");
                 i++;
             }
             
@@ -274,7 +306,7 @@ public class FormFauna extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        String namaKolom[] = {"No", "Nama", "Habitat", "Lama Hidup", "Penyebaran", "Tipe", "Jumlah"};
+        String namaKolom[] = {"No", "ID fauna", "Nama", "Makanan", "Habitat", "Lama Hidup", "Penyebaran", "Tipe", "Jumlah"};
         DefaultTableModel model = new DefaultTableModel(isi, namaKolom);
         jTable1.setModel(model);
     }

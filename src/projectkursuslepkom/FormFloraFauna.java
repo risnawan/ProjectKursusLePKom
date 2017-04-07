@@ -50,6 +50,11 @@ public class FormFloraFauna extends javax.swing.JFrame {
         btnSatwa.setForeground(new java.awt.Color(255, 255, 255));
         btnSatwa.setText("Satwa");
         btnSatwa.setPreferredSize(new java.awt.Dimension(140, 80));
+        btnSatwa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSatwaActionPerformed(evt);
+            }
+        });
 
         btnFlora.setBackground(new java.awt.Color(52, 152, 219));
         btnFlora.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
@@ -113,6 +118,12 @@ public class FormFloraFauna extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnSatwaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSatwaActionPerformed
+        // TODO add your handling code here:
+        new FormFauna().show();
+        this.dispose();
+    }//GEN-LAST:event_btnSatwaActionPerformed
 
     /**
      * @param args the command line arguments

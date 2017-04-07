@@ -10,6 +10,7 @@
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
     <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
   </Events>
   <AuxValues>
@@ -101,12 +102,16 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
+                  <Table columnCount="9" rowCount="0">
+                    <Column editable="false" title="No" type="java.lang.Object"/>
                     <Column editable="false" title="ID Fauna" type="java.lang.Object"/>
                     <Column editable="false" title="Nama Fauna" type="java.lang.Object"/>
                     <Column editable="false" title="Ringkasan" type="java.lang.Object"/>
-                    <Column editable="false" title="Tinggi" type="java.lang.Object"/>
-                    <Column editable="false" title="Foto" type="java.lang.Object"/>
+                    <Column editable="false" title="Habitat" type="java.lang.Object"/>
+                    <Column editable="false" title="Lama Hidup" type="java.lang.Object"/>
+                    <Column editable="false" title="Penyebaran" type="java.lang.Object"/>
+                    <Column editable="false" title="Tipe" type="java.lang.Object"/>
+                    <Column editable="false" title="Makanan" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -143,6 +148,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

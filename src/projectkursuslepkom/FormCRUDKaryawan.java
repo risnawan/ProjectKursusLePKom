@@ -30,6 +30,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     ResultSet data = null;
     //public static String no; 
     String foto = null, dest = null;
+    String query="";
     
     public static String idKaryawan, opsi;
     
@@ -264,11 +265,17 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         String notelp = txtNoT.getText();
         int jabatan = cbJabatan.getSelectedIndex();
        
-        String query = "insert into pegawai values('"+id+"','"+nama+"','"+alamat+"','"+notelp+"','"+jabatan+"','"+foto+"')";
         
+        if(opsi == "edit"){
+            query = "UPDATE pegawai SET nama='"+txtNama.getText()+"', alamat='"+txtAlamat.getText()+"', no_telp='"+txtNoT.getText()+"', jabatan='"+jabatan+"', foto='"+foto+"' WHERE id_pegawai="+id+"";
+        }
+        else if(opsi == "tambah"){
+            query = "insert into pegawai values("+id+",'"+nama+"','"+alamat+"','"+notelp+"','"+jabatan+"','"+foto+"')";
+        }
+                
         try {
             connect.getStatement().executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
+            JOptionPane.showMessageDialog(null, "Berhasil");
             
             //untuk copy file
             File source = new File(dest);
@@ -283,8 +290,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-        }
-        
+        }        
     }//GEN-LAST:event_jbSimpanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -313,12 +319,6 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
             try {
                 BufferedImage gambar = ImageIO.read(file);
                 ImageIcon icon = new ImageIcon(gambar);
-                
-                //lFoto.setIcon(icon);
-//                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-//                lFoto.setPreferredSize(imageSize);
-//                lFoto.revalidate();
-//                lFoto.repaint();
                 foto = file.getName();
                 dest = file.getAbsolutePath();
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));

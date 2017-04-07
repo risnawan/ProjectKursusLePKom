@@ -40,8 +40,8 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     ResultSet data = null;
     
     String foto = null, dest = null;
-    
-    public static String ifFauna, opsi;
+    String query="";
+    public static String idFauna, opsi;
     
 //    static Socket s;
 //    static DataInputStream din;
@@ -299,14 +299,14 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                             .addComponent(txtPenyebaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbKembali)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))))
+                                .addComponent(jLabel9))
+                            .addComponent(jbKembali))
                         .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -331,40 +331,34 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
-        // TODO add your handling code here:
-        String id = txtIDF.getText();
-        String nama = txtNama.getText();
-        String ringkasan = txtRingkasan.getText();
-        String tinggi = txtMakanan.getText();
-        String values = String.format("'[0]','[1]','[2]','[3]','[4]','[5]','[6]','[7]','[8]','[9]'",
-                txtIDF.getText(),
-                txtNama.getText(),
-                txtRingkasan.getText(),
-                txtMakanan.getText(),
-                txtHabitat.getText(),
-                txtLamaHidup.getText(),
-                txtPenyebaran.getText(),
-                txtTipe.getText(),
-                foto,
-                txtJumlah.getText());
-        String query = "insert into flora values('"+txtIDF.getText()+"','"+txtNama.getText()+"','"+txtRingkasan.getText()+"','"+txtMakanan.getText()+"','"+foto+"')";
+    
+        if(opsi=="tambah"){
+            query = "insert into fauna values("+txtIDF.getText()+",'"+txtNama.getText()+"','"+txtRingkasan.getText()+"','"+txtMakanan.getText()+"','"+txtHabitat.getText()+"','"+txtLamaHidup.getText()+"','"+txtPenyebaran.getText()+"',"+txtTipe.getText()+",'"+foto+"',"+txtJumlah.getText()+")";    
+        }
+        else if(opsi=="edit"){
+            query = "UPDATE fauna SET nama='"+txtNama.getText()+"',ringkasan='"+txtRingkasan.getText()+"',makanan='"+txtMakanan.getText()+"',habitat='"+txtHabitat.getText()+"',lama_hidup='"+txtLamaHidup.getText()+"',penyebaran='"+txtPenyebaran.getText()+"',tipe="+txtTipe.getText()+",foto='"+foto+"',jumlah='"+txtJumlah.getText()+"' WHERE id_fauna="+txtIDF.getText()+"";
+        }
+        
         
         try {
             connect.getStatement().executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
+            JOptionPane.showMessageDialog(null, "Berhasil");
             
             //untuk copy file
+            if (dest!= null){
             File source = new File(dest);
             File destini = new File("C:\\XAMPP\\htdocs\\java\\image\\"+foto);
             try {
                 FileUtils.copyFile(source, destini);
-                new FormFlora().show();
-                this.dispose();
             } catch (IOException e) {
                 e.printStackTrace();
-            }            
+            }
+            }
+            
+            new FormFloraFauna().show();
+            this.dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
+            JOptionPane.showMessageDialog(null, e);
         }
         
         
@@ -385,13 +379,13 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
         // TODO add your handling code here:
-        new FormFlora().show();
+        new FormFloraFauna().show();
         this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
 
     private void lFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lFotoMouseClicked
         // TODO add your handling code here:
-                dest = "";
+        dest = "";
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -399,11 +393,6 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                 BufferedImage gambar = ImageIO.read(file);
                 ImageIcon icon = new ImageIcon(gambar);
                 
-                //lFoto.setIcon(icon);
-//                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-//                lFoto.setPreferredSize(imageSize);
-//                lFoto.revalidate();
-//                lFoto.repaint();
                 foto = file.getName();
                 dest = file.getAbsolutePath();
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
@@ -418,19 +407,19 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        new FormFlora().show();
+        new FormFloraFauna().show();
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     public String AutoID(){
         String id = "0";
         int temp = 0;
-        String query = "select id_flora from flora where id_flora order by id_flora desc limit 1";
+        String query = "select id_fauna from fauna where id_fauna order by id_fauna desc limit 1";
         try {
             data = connect.getStatement().executeQuery(query);
             while(data.next())
             {
-                id = data.getString("id_flora");
+                id = data.getString("id_fauna");
             }
         } catch (Exception e) {
             System.out.println("Ada kesalahan ID");
@@ -443,16 +432,20 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     
     public void tampilkanData(){
         dest = "C:\\XAMPP\\htdocs\\java\\image\\";
-        String query = "select * from flora where id_flora = "+ifFauna;
+        String query = "select * from fauna where id_fauna = "+idFauna;
         try {
             data = connect.getStatement().executeQuery(query);
             if(data.next())
             {
-                //id = data.getString("id_pegawai");
-                txtIDF.setText(data.getString("id_flora"));
+                txtIDF.setText(data.getString("id_fauna"));
                 txtNama.setText(data.getString("nama"));
-                txtMakanan.setText(data.getString("tinggi"));
+                txtMakanan.setText(data.getString("makanan"));
                 txtRingkasan.setText(data.getString("ringkasan"));
+                txtHabitat.setText(data.getString("habitat"));
+                txtLamaHidup.setText(data.getString("lama_hidup"));
+                txtPenyebaran.setText(data.getString("penyebaran"));
+                txtTipe.setText(data.getString("tipe"));
+                txtJumlah.setText(data.getString("jumlah"));
                 try {
                     dest = dest + data.getString("foto");
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));

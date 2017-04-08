@@ -23,7 +23,7 @@ import net.proteanit.sql.DbUtils;
  */
 public class FormOperator extends javax.swing.JFrame {
 
-    
+    public static String ID;
      public FormOperator() {
         initComponents();
     }
@@ -192,7 +192,7 @@ public class FormOperator extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
        
-         public String AutoID(){
+    public String AutoID(){
             String id = "0";
             int temp = 0;
             String query = "select id_transaksi from transaksi where id_transaksi order by id_transaksi desc limit 1";
@@ -205,43 +205,17 @@ public class FormOperator extends javax.swing.JFrame {
             {
                 id = rs.getString("id_transaksi");
                 System.out.println(id);
-//                txtID.setText(id);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
         }
                 temp = Integer.parseInt(id);
-             temp = temp + 1;
-             id = String.valueOf(temp);
-                //this.no = id;
+                temp = temp + 1;
+                id = String.valueOf(temp);
                 return id;
         } 
-    
-  /*   public static String AutoID(){
-       String id = "0";
-        int temp = 0;
-        String query = "select id_transaksi from fauna where id_transaksi order by id_transaksi desc limit 1";
-        try {
-            Connection conn = (Connection)j2se.Koneksi.konek();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rs = stm.executeQuery(query);
-            
-            while(rs.next())
-            {
-                id = rs.getString("id_transaksi");
-            }
-        } catch (Exception e) {
-            System.out.println("Ada kesalahan ID");
-        }
-        temp = Integer.parseInt(id);
-        temp = temp + 1;
-        id = String.valueOf(temp);
-        //this.no = id;
-        return id;
-    } */
-         
-         
+     
     public void AutoTime(){
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

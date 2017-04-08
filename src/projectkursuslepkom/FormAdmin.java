@@ -16,6 +16,9 @@ public class FormAdmin extends javax.swing.JFrame {
     /**
      * Creates new form HalamanAdmin
      */
+   
+    
+    public static String tipe, ID;
     public FormAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -38,6 +41,7 @@ public class FormAdmin extends javax.swing.JFrame {
         btnLaporan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnInformasiFauna = new javax.swing.JButton();
+        btnDaftarUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kebun Binatang Ragunan");
@@ -47,6 +51,9 @@ public class FormAdmin extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -104,6 +111,17 @@ public class FormAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnDaftarUser.setBackground(new java.awt.Color(52, 152, 219));
+        btnDaftarUser.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btnDaftarUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnDaftarUser.setText("Daftar User Login");
+        btnDaftarUser.setMaximumSize(new java.awt.Dimension(125, 40));
+        btnDaftarUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDaftarUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,9 +142,14 @@ public class FormAdmin extends javax.swing.JFrame {
                         .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(351, 351, 351))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(351, 351, 351))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnDaftarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(308, 308, 308))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +165,9 @@ public class FormAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDaftarBiayaMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDaftarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,7 +180,7 @@ public class FormAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -195,6 +220,22 @@ public class FormAdmin extends javax.swing.JFrame {
         new FormFauna().show();
         this.dispose();
     }//GEN-LAST:event_btnInformasiFaunaActionPerformed
+
+    private void btnDaftarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDaftarUserActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        if(tipe.equals("admin")){
+            btnDaftarUser.setEnabled(false);
+            btnDaftarUser.setVisible(false);
+        }
+        else if (tipe.equals("super")){
+            btnDaftarUser.setEnabled(true);
+            btnDaftarUser.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     
     /**
@@ -236,6 +277,7 @@ public class FormAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDaftarBiayaMasuk;
+    private javax.swing.JButton btnDaftarUser;
     private javax.swing.JButton btnDataKaryawan;
     private javax.swing.JButton btnInformasiFauna;
     private javax.swing.JButton btnInformasiFlora;

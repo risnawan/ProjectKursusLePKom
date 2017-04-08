@@ -25,6 +25,7 @@ public class FormLogin extends javax.swing.JFrame {
     
     Koneksi connect = new Koneksi();
     ResultSet data = null;
+    String tipe = "", id_pegawai="";
     
     public FormLogin() {
         initComponents();
@@ -145,14 +146,18 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukActionPerformed
-        // TODO add your handling code here:
-        
-        if(user(txtUsername.getText(), txtPassword.getText()))
-        {
-            new FormAdmin().show(); this.dispose();
+        if(user(txtUsername.getText(), txtPassword.getText())){
+            if (tipe.equals("1")){
+                new FormAdmin().show(); FormAdmin.ID = id_pegawai; FormAdmin.tipe = "admin"; this.dispose();
+            }
+            else if (tipe.equals("2")){
+                new FormOperator().show(); FormOperator.ID = id_pegawai; this.dispose();
+            }
+            else if(tipe.equals("0")){
+                new FormAdmin().show(); FormAdmin.ID = id_pegawai; FormAdmin.tipe = "super"; this.dispose();
+            }
         }
-        else
-        {
+        else{
             JOptionPane.showMessageDialog(null, "user atau password salah");
             txtPassword.setText(null);
         }
@@ -168,16 +173,17 @@ public class FormLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    public boolean user(String id, String password)
-    {
+    public boolean user(String id, String password){
         String query;
         boolean flag;
         flag = false;
-        query = "Select id, password from user where id = '" +id+ "' and password = '"+password+"'" ;
+        query = "Select id, password, tipe, id_pegawai from user where id = '" +id+ "' and password = '"+password+"'" ;
         try {
             data = connect.getStatement().executeQuery(query);
             if(data.next())
             {
+                tipe = data.getString("tipe");
+                id_pegawai = data.getString("id_pegawai");
                 flag = true;
             }
             else

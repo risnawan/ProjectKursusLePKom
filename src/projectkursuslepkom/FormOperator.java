@@ -9,6 +9,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +24,11 @@ import net.proteanit.sql.DbUtils;
  */
 public class FormOperator extends javax.swing.JFrame {
 
+    Koneksi connect = new Koneksi();
+    ResultSet data = null;
+    
     public static String ID;
+    String mTransaksi = "";
      public FormOperator() {
         initComponents();
     }
@@ -191,37 +196,11 @@ public class FormOperator extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-       
-    public String AutoID(){
-            String id = "0";
-            int temp = 0;
-            String query = "select id_transaksi from transaksi where id_transaksi order by id_transaksi desc limit 1";
-            try {
-            Connection conn = (Connection)Koneksi.konek();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rs = stm.executeQuery(query);
-            
-            while(rs.next())
-            {
-                id = rs.getString("id_transaksi");
-                System.out.println(id);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                temp = Integer.parseInt(id);
-                temp = temp + 1;
-                id = String.valueOf(temp);
-                return id;
-        } 
-     
+          
     public void AutoTime(){
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MMMM/d HH:mm:ss");
         String string  = dateFormat.format(new Date());
         jLabel5.setText(string);
-                 
     } 
     
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -285,12 +264,49 @@ public class FormOperator extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        AutoID();
+        AutoNomor();
         AutoTime();
-        jLabel9.setText("Nama operator  : " + "Luky Hendry");
+        IDTransaksi();
+        DataOperator();
     }//GEN-LAST:event_formWindowOpened
 
+    public String AutoNomor(){
+        String no = "0";
+        int temp = 0;
+        String query = "select no from transaksi where no order by no desc limit 1";
+        try {
+            data = connect.getStatement().executeQuery(query);
+            while(data.next())
+            {
+                no = data.getString("no");
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+        temp = Integer.parseInt(no);
+        temp = temp + 1;
+        no = String.valueOf(temp);
+        return no;
+    }
     
+    private void DataOperator(){
+        String query = "select * from pegawai where id_pegawai = "+ID;
+        try {
+            data = connect.getStatement().executeQuery(query);
+            if(data.next())
+            {
+                jLabel9.setText("Nama operator  : " + data.getString("nama"));
+            }
+        } catch (Exception e) {
+            System.out.println("Ada kesalahan ID");
+        }
+    }
+    
+    private void IDTransaksi(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MMMM/d");
+        String string  = dateFormat.format(new Date());
+        jLabel6.setText("No. Pembelian  : " + string);
+    }
     
     /**
      * @param args the command line arguments

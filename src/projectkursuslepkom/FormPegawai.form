@@ -111,14 +111,13 @@
                   <Font name="Bookman Old Style" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="4">
+                  <Table columnCount="6" rowCount="1">
                     <Column editable="false" title="No" type="java.lang.Object"/>
                     <Column editable="false" title="ID Pegawai" type="java.lang.Object"/>
                     <Column editable="false" title="Nama" type="java.lang.Object"/>
                     <Column editable="false" title="Alamat" type="java.lang.Object"/>
                     <Column editable="false" title="No Telp" type="java.lang.Object"/>
                     <Column editable="false" title="Jabatan" type="java.lang.Object"/>
-                    <Column editable="false" title="Aksi" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

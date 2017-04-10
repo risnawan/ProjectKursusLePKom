@@ -86,9 +86,14 @@
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="lFoto" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane1" min="-2" pref="392" max="-2" attributes="0"/>
-                              <Component id="cbJabatan" min="-2" pref="118" max="-2" attributes="0"/>
-                              <Component id="jbSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jScrollPane1" pref="392" max="32767" attributes="0"/>
+                                      <Component id="jbSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbJabatan" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -327,9 +332,22 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Admin"/>
-                <StringItem index="1" value="Operator"/>
+              <StringArray count="15">
+                <StringItem index="0" value="Tenaga IT Administrasi"/>
+                <StringItem index="1" value="Tenaga Keamanan"/>
+                <StringItem index="2" value="Tenaga IT Jaringan"/>
+                <StringItem index="3" value="Tenaga Loket"/>
+                <StringItem index="4" value="Tenaga Perawat Satwa"/>
+                <StringItem index="5" value="Tenaga Pakan Satwa"/>
+                <StringItem index="6" value="Tenaga Penterjemah Bahasa Inggris"/>
+                <StringItem index="7" value="Tenaga Fisik Listrik dan Air"/>
+                <StringItem index="8" value="Tenaga Teknik Sipil (arsitektur)"/>
+                <StringItem index="9" value="Tenaga Kebersihan dan Pertanaman"/>
+                <StringItem index="10" value="Tenaga Dokter Hewan"/>
+                <StringItem index="11" value="Tenaga Laboratorium"/>
+                <StringItem index="12" value="Tenaga Rontgen"/>
+                <StringItem index="13" value="Tenaga Pengemudi"/>
+                <StringItem index="14" value="Tenaga Akuntansi"/>
               </StringArray>
             </Property>
           </Properties>

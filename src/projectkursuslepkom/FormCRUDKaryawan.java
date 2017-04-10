@@ -29,7 +29,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     Koneksi connect = new Koneksi();
     ResultSet data = null;
     //public static String no; 
-    String foto = null, dest = null;
+    String foto = "default.jpg", dest = null;
     String query="";
     
     public static String idKaryawan, opsi;
@@ -155,7 +155,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
         cbJabatan.setBackground(new java.awt.Color(52, 152, 219));
         cbJabatan.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbJabatan.setForeground(new java.awt.Color(255, 255, 255));
-        cbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Operator" }));
+        cbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tenaga IT Administrasi", "Tenaga Keamanan", "Tenaga IT Jaringan", "Tenaga Loket", "Tenaga Perawat Satwa", "Tenaga Pakan Satwa", "Tenaga Penterjemah Bahasa Inggris", "Tenaga Fisik Listrik dan Air", "Tenaga Teknik Sipil (arsitektur)", "Tenaga Kebersihan dan Pertanaman", "Tenaga Dokter Hewan", "Tenaga Laboratorium", "Tenaga Rontgen", "Tenaga Pengemudi", "Tenaga Akuntansi" }));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
@@ -190,9 +190,12 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                                     .addComponent(txtNoT, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(32, 32, 32)
                                 .addComponent(lFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbSimpan)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                                    .addComponent(jbSimpan)
+                                    .addComponent(cbJabatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -295,6 +298,12 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        try {
+            dest = "C:\\XAMPP\\htdocs\\java\\image\\default.jpg";
+            lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            } catch (Exception ex) {
+                System.out.println("problem accessing file");
+            }
         if(opsi == "tambah"){
             txtIDP.setText(AutoID());
         }
@@ -312,7 +321,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
 
     private void lFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lFotoMouseClicked
         // TODO add your handling code here:
-        dest = "";
+        dest = "C:\\XAMPP\\htdocs\\java\\image\\";
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -324,6 +333,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             } catch (Exception ex) {
                 System.out.println("problem accessing file" + file.getAbsolutePath());
+                
             }
         } else {
             System.out.println("File access cancelled by user.");
@@ -358,25 +368,31 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
     
     public void tampilkanData(){
         dest = "C:\\XAMPP\\htdocs\\java\\image\\";
+        try {
+            dest = dest + foto;
+            lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            } catch (Exception ex) {
+                System.out.println("problem accessing file");
+            }
+        
         String query = "select * from pegawai where id_pegawai = "+idKaryawan;
         try {
             data = connect.getStatement().executeQuery(query);
             if(data.next())
             {
+                dest = "C:\\XAMPP\\htdocs\\java\\image\\";
                 //id = data.getString("id_pegawai");
                 txtIDP.setText(data.getString("id_pegawai"));
                 txtNama.setText(data.getString("nama"));
                 txtAlamat.setText(data.getString("alamat"));
                 txtNoT.setText(data.getString("no_telp"));
-                if(data.getString("jabatan")=="1")
-                    cbJabatan.setSelectedIndex(1);
-                else
-                    cbJabatan.setSelectedIndex(0);
-                
+//                if(data.getString("id_jabatan")=="1")
+//                    cbJabatan.setSelectedIndex(1);
+//                else
+//                    cbJabatan.setSelectedIndex(0);
+//                
+                cbJabatan.setSelectedIndex(data.getInt("id_jabatan"));
                 try {
-//                    File file = new File("C:\\XAMPP\\htdocs\\java\\image\\"+data.getString("foto"));
-//                    BufferedImage gambar = ImageIO.read(file);
-//                    ImageIcon icon = new ImageIcon(gambar);
                     dest = dest + data.getString("foto");
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             } catch (Exception ex) {

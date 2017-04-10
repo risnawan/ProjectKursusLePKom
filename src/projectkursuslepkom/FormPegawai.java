@@ -69,17 +69,14 @@ public class FormPegawai extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Pegawai", "Nama", "Alamat", "No Telp", "Jabatan", "Aksi"
+                "No", "ID Pegawai", "Nama", "Alamat", "No Telp", "Jabatan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -105,8 +102,6 @@ public class FormPegawai extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
 
         jbKembali.setBackground(new java.awt.Color(52, 152, 219));
@@ -286,7 +281,7 @@ public class FormPegawai extends javax.swing.JFrame {
     {
         int baris = 1;
         int i = 0;
-        String query = "select * from pegawai";
+        String query = "select * from pegawai inner join jabatan on pegawai.id_jabatan = jabatan.id_jabatan";
         
         try {
             data = connect.getStatement().executeQuery(query);
@@ -298,7 +293,7 @@ public class FormPegawai extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "errpr");
         }
         String kj;
-        String isi[][] = new String[baris][7];
+        String isi[][] = new String[baris][6];
         try {
             data = connect.getStatement().executeQuery(query);
             while(data.next()){
@@ -307,13 +302,7 @@ public class FormPegawai extends javax.swing.JFrame {
                 isi[i][2] = data.getString("nama");
                 isi[i][3] = data.getString("alamat");
                 isi[i][4] = data.getString("no_telp");
-                //kj = data.getString("jabatan");
-                if (data.getString("jabatan").contentEquals("1")){
-                    isi[i][5] = "Admin"; 
-                }
-                else{
-                    isi[i][5] = "Pegawai"; 
-                }
+                isi[i][5] = data.getString("nama_jabatan");
                 i++;
             }
             
@@ -321,7 +310,7 @@ public class FormPegawai extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        String namaKolom[] = {"No", "ID_Pegawai", "Nama", "Alamat", "No Telepon", "Jabatan", "Aksi"};
+        String namaKolom[] = {"No", "ID_Pegawai", "Nama", "Alamat", "No Telepon", "Jabatan"};
         DefaultTableModel model = new DefaultTableModel(isi, namaKolom);
         jTable1.setModel(model);
     }

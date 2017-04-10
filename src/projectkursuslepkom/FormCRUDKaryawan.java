@@ -270,7 +270,7 @@ public class FormCRUDKaryawan extends javax.swing.JFrame {
        
         
         if(opsi == "edit"){
-            query = "UPDATE pegawai SET nama='"+txtNama.getText()+"', alamat='"+txtAlamat.getText()+"', no_telp='"+txtNoT.getText()+"', jabatan='"+jabatan+"', foto='"+foto+"' WHERE id_pegawai="+id+"";
+            query = "UPDATE pegawai SET nama='"+txtNama.getText()+"', alamat='"+txtAlamat.getText()+"', no_telp='"+txtNoT.getText()+"', id_jabatan='"+jabatan+"', foto='"+foto+"' WHERE id_pegawai="+id+"";
         }
         else if(opsi == "tambah"){
             query = "insert into pegawai values("+id+",'"+nama+"','"+alamat+"','"+notelp+"','"+jabatan+"','"+foto+"')";

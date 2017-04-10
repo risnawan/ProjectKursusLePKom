@@ -52,7 +52,8 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     
     public FormCRUDFlora() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);        
     }
 
     /**
@@ -312,7 +313,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
 
     private void lFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lFotoMouseClicked
         // TODO add your handling code here:
-                dest = "";
+        dest = "";
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();

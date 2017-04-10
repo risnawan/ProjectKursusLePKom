@@ -27,4 +27,5 @@ Penyimpanan gambar masih bersifat statis. jadi perlu install XAMPP pada dengan l
 | Mohammad Risnawan Budianto | 55413639 | 4IA01 |
 | Reky Rolen Kencana | 57413375 | 4IA07 |
 | Wandy | 59413226 | 4IA05 |
+
 **Pembimbing : Ahmad Hidayat,Skom,MMSI**

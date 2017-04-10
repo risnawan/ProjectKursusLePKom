@@ -39,7 +39,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
     Koneksi connect = new Koneksi();
     ResultSet data = null;
     
-    String foto = null, dest = null;
+    String foto = "defaul.jpg", dest = null;
     
     public static String idFlora, opsi;
     
@@ -238,7 +238,9 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -269,31 +271,18 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             }            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
-        }
-        
-//            connect.getStatement().executeUpdate(query);
-//            JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
-//            
-//            //untuk copy file
-//            File source = new File(dest);
-//            File destini = new File("C:\\XAMPP\\htdocs\\java\\image\\"+foto);
-//            try {
-//                FileUtils.copyFile(source, destini);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            
-//            new FormPegawai().show();
-//            this.dispose();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        } 
-        
+        }       
         
     }//GEN-LAST:event_jbSimpanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        try {
+            dest = "C:\\XAMPP\\htdocs\\java\\image\\default.jpg";
+            lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        } catch (Exception ex) {
+            System.out.println("problem accessing file");}
+        
         if(opsi=="tambah")
         {
             txtIDF.setText(AutoID());
@@ -320,12 +309,6 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             try {
                 BufferedImage gambar = ImageIO.read(file);
                 ImageIcon icon = new ImageIcon(gambar);
-                
-                //lFoto.setIcon(icon);
-//                Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-//                lFoto.setPreferredSize(imageSize);
-//                lFoto.revalidate();
-//                lFoto.repaint();
                 foto = file.getName();
                 dest = file.getAbsolutePath();
                 lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));

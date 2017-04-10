@@ -31,6 +31,8 @@ public class FormOperator extends javax.swing.JFrame {
     String mTransaksi = "";
      public FormOperator() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -58,6 +60,9 @@ public class FormOperator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -221,28 +226,15 @@ public class FormOperator extends javax.swing.JFrame {
                 dewasa = Integer.parseInt(txtDewasa.getText()) * Integer.parseInt(h_dewasa);
                 total = anak + dewasa;
                 sh = Integer.toString(total);
-                
-                //System.out.println("dewasa = "+h_dewasa+" anak = "+h_anak);
-                         
-                
-                
+               
             }
                        
         } catch (SQLException ex) {
             Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-       
-       
-//        String query = ("insert into transaksi values"+"('"+txtID.getText()+"', '"+tgl.getText()+"',  '"+txtDewasa.getText()+"', '"+txtAnak.getText()+"')");
-        
-        
-        
         try {
-          
-         
-           
-                     
+               
             java.sql.Connection conn = (java.sql.Connection)Koneksi.konek();
 //            java.sql.PreparedStatement pst = conn.prepareStatement(query);
 //            pst/.execute();
@@ -251,24 +243,27 @@ public class FormOperator extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
         }
        
-   
-
-        
-        
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         AutoNomor();
         AutoTime();
-        IDTransaksi();
-        DataOperator();
+        jLabel6.setText("No. Pembelian  : " + IDTransaksi());
+//        IDTransaksi();
+        jLabel9.setText("Nama operator  : " + DataOperator(Integer.parseInt(ID)));
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, 
+            "Apa kamu yakin ingin kembali ke halaman login?", "Sungguh?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            new FormLogin().show();
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     public String AutoNomor(){
         String no = "0";
@@ -289,23 +284,27 @@ public class FormOperator extends javax.swing.JFrame {
         return no;
     }
     
-    private void DataOperator(){
-        String query = "select * from pegawai where id_pegawai = "+ID;
+    private String DataOperator(int id){
+        String operator = "";
+        String query = "select * from pegawai where id_pegawai = "+ id;
         try {
             data = connect.getStatement().executeQuery(query);
             if(data.next())
             {
-                jLabel9.setText("Nama operator  : " + data.getString("nama"));
+//                jLabel9.setText("Nama operator  : " + data.getString("nama"));
+                operator = data.getString("nama");
             }
         } catch (Exception e) {
             System.out.println("Ada kesalahan ID");
+            operator = "";
         }
+        return operator;
     }
     
-    private void IDTransaksi(){
+    private String IDTransaksi(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MMMM/d");
         String string  = dateFormat.format(new Date());
-        jLabel6.setText("No. Pembelian  : " + string);
+        return string + "/" + AutoNomor();
     }
     
     /**

@@ -60,6 +60,9 @@ public class SetTiket extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kebun Binatang Ragunan");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -201,6 +204,12 @@ public class SetTiket extends javax.swing.JFrame {
         new FormAdmin().show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        new FormAdmin().show();
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     public void tampilkanData(){
         query = "select * from tiket ";

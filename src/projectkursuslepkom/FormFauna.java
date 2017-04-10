@@ -167,13 +167,13 @@ public class FormFauna extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbKembali)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,7 +182,7 @@ public class FormFauna extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah)
@@ -258,7 +258,6 @@ public class FormFauna extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         refresh();
-        JOptionPane.showMessageDialog(null, jTable1.getRowCount());
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -270,8 +269,8 @@ public class FormFauna extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         model2 = (DefaultTableModel)jTable1.getModel();
-//        selectedRowIndex = jTable1.getSelectedRow();
-//        String id = model2.getValueAt(selectedRowIndex, 1).toString();
+        selectedRowIndex = jTable1.getSelectedRow();
+        String id = model2.getValueAt(selectedRowIndex, 1).toString();
     }//GEN-LAST:event_jTable1MouseClicked
 
     public void hapusRecord(){
@@ -289,7 +288,7 @@ public class FormFauna extends javax.swing.JFrame {
     {
         int baris = 1;
         int i = 0;
-        String query = "select * from fauna";
+        String query = "select * from fauna inner join tipe on fauna.id_tipefauna = tipe.id_tipefauna ORDER by id_fauna asc";
         
         try {
             data = connect.getStatement().executeQuery(query);
@@ -312,7 +311,7 @@ public class FormFauna extends javax.swing.JFrame {
                 isi[i][4] = data.getString("habitat");
                 isi[i][5] = data.getString("lama_hidup");
                 isi[i][6] = data.getString("penyebaran");
-                isi[i][7] = data.getString("tipe");
+                isi[i][7] = data.getString("nama_tipe");
                 isi[i][8] = data.getString("jumlah");
                 i++;
             }

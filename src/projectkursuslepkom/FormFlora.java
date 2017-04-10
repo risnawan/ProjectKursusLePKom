@@ -252,7 +252,7 @@ public class FormFlora extends javax.swing.JFrame {
     public void refresh(){
         int baris = 1;
         int i = 0;
-        String query = "select * from flora";
+        String query = "select * from flora ORDER by id_flora asc";
         
         try {
             data = connect.getStatement().executeQuery(query);

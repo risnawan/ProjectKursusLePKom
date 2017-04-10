@@ -18,7 +18,7 @@ public class FormAdmin extends javax.swing.JFrame {
      */
    
     
-    public static String tipe, ID;
+    public static String tipe = "admin", ID = "0";
     public FormAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);

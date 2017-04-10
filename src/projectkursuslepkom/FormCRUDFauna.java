@@ -39,7 +39,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     Koneksi connect = new Koneksi();
     ResultSet data = null;
     
-    String foto = null, dest = null;
+    String foto = "default.jpg", dest = null;
     String query="";
     public static String idFauna, opsi;
     
@@ -86,10 +86,10 @@ public class FormCRUDFauna extends javax.swing.JFrame {
         txtLamaHidup = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtPenyebaran = new javax.swing.JTextField();
-        txtTipe = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtJumlah = new javax.swing.JTextField();
+        cbTipe = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -149,6 +149,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
             }
         });
 
+        txtIDF.setEditable(false);
         txtIDF.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         txtIDF.setFocusable(false);
 
@@ -184,8 +185,6 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
         txtPenyebaran.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        txtTipe.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
         jLabel9.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Tipe");
@@ -195,6 +194,9 @@ public class FormCRUDFauna extends javax.swing.JFrame {
         jLabel10.setText("Jumlah");
 
         txtJumlah.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+
+        cbTipe.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cbTipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mamalia", "Reptil", "Aves", "Pisces", "Amphibia" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -225,8 +227,8 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                                             .addComponent(txtHabitat, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                                             .addComponent(txtLamaHidup)
                                             .addComponent(txtPenyebaran)
-                                            .addComponent(txtTipe)
-                                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jbSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +246,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbKembali)))
-                .addGap(40, 85, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,31 +274,31 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHabitat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLamaHidup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPenyebaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel9)
+                    .addComponent(cbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSimpan)
-                .addGap(1, 1, 1)
+                .addGap(18, 18, 18)
                 .addComponent(jbKembali)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,10 +320,10 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     private void jbSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimpanActionPerformed
     
         if(opsi=="tambah"){
-            query = "insert into fauna values("+txtIDF.getText()+",'"+txtNama.getText()+"','"+txtRingkasan.getText()+"','"+txtMakanan.getText()+"','"+txtHabitat.getText()+"','"+txtLamaHidup.getText()+"','"+txtPenyebaran.getText()+"',"+txtTipe.getText()+",'"+foto+"',"+txtJumlah.getText()+")";    
+            query = "insert into fauna values("+txtIDF.getText()+",'"+txtNama.getText()+"','"+txtRingkasan.getText()+"','"+txtMakanan.getText()+"','"+txtHabitat.getText()+"','"+txtLamaHidup.getText()+"','"+txtPenyebaran.getText()+"',"+cbTipe.getSelectedIndex()+",'"+foto+"',"+txtJumlah.getText()+")";    
         }
         else if(opsi=="edit"){
-            query = "UPDATE fauna SET nama='"+txtNama.getText()+"',ringkasan='"+txtRingkasan.getText()+"',makanan='"+txtMakanan.getText()+"',habitat='"+txtHabitat.getText()+"',lama_hidup='"+txtLamaHidup.getText()+"',penyebaran='"+txtPenyebaran.getText()+"',tipe="+txtTipe.getText()+",foto='"+foto+"',jumlah='"+txtJumlah.getText()+"' WHERE id_fauna="+txtIDF.getText()+"";
+            query = "UPDATE fauna SET nama='"+txtNama.getText()+"',ringkasan='"+txtRingkasan.getText()+"',makanan='"+txtMakanan.getText()+"',habitat='"+txtHabitat.getText()+"',lama_hidup='"+txtLamaHidup.getText()+"',penyebaran='"+txtPenyebaran.getText()+"',id_tipefauna="+cbTipe.getSelectedIndex()+",foto='"+foto+"',jumlah='"+txtJumlah.getText()+"' WHERE id_fauna="+txtIDF.getText()+"";
         }
         
         
@@ -349,6 +351,13 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        try {
+            dest = "C:\\XAMPP\\htdocs\\java\\image\\default.jpg";
+            lFoto.setIcon(new ImageIcon(new javax.swing.ImageIcon(dest).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        } catch (Exception ex) {
+            System.out.println("problem accessing file");
+        }
+        
         if(opsi=="tambah")
         {
             txtIDF.setText(AutoID());
@@ -362,7 +371,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void jbKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbKembaliActionPerformed
         // TODO add your handling code here:
-        new FormAdmin().show();
+        new FormFauna().show();
         this.dispose();
     }//GEN-LAST:event_jbKembaliActionPerformed
 
@@ -390,7 +399,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        new FormAdmin().show();
+        new FormFauna().show();
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
@@ -427,7 +436,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
                 txtHabitat.setText(data.getString("habitat"));
                 txtLamaHidup.setText(data.getString("lama_hidup"));
                 txtPenyebaran.setText(data.getString("penyebaran"));
-                txtTipe.setText(data.getString("tipe"));
+                cbTipe.setSelectedIndex(data.getInt("id_tipefauna"));
                 txtJumlah.setText(data.getString("jumlah"));
                 try {
                     dest = dest + data.getString("foto");
@@ -486,6 +495,7 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbTipe;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -510,6 +520,5 @@ public class FormCRUDFauna extends javax.swing.JFrame {
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtPenyebaran;
     private javax.swing.JTextArea txtRingkasan;
-    private javax.swing.JTextField txtTipe;
     // End of variables declaration//GEN-END:variables
 }

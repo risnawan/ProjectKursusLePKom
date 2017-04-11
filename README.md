@@ -1,6 +1,6 @@
 # ProjectKursusLePKom
 
-[![N|Solid](http://lepkom.gunadarma.ac.id//template/templateKecot/images/index_02.jpg)](vm.lepkom.gunadarma.ac.id/)
+[![N|Solid](http://lepkom.gunadarma.ac.id//template/templateKecot/images/index_02.jpg)](http://vm.lepkom.gunadarma.ac.id/)
 
 Dalam memenuhi tugas Lepkom Kursus Mandiri Berbasis Virtual, kami berkolaborasi membuat aplikasi berbasis dekstop menggunakan bahasa pemrograman java (J2SE dan JavaFX).
 

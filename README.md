@@ -1,6 +1,6 @@
 # ProjectKursusLePKom
 
-[![N|Solid](http://lepkom.gunadarma.ac.id//template/templateKecot/images/index_02.jpg)](vm.lepkom.gunadarma.ac.id/)
+[![N|Solid](http://lepkom.gunadarma.ac.id//template/templateKecot/images/index_02.jpg)](http://vm.lepkom.gunadarma.ac.id/)
 
 Dalam memenuhi tugas Lepkom Kursus Mandiri Berbasis Virtual, kami berkolaborasi membuat aplikasi berbasis dekstop menggunakan bahasa pemrograman java (J2SE dan JavaFX).
 
@@ -16,7 +16,8 @@ Dalam memenuhi tugas Lepkom Kursus Mandiri Berbasis Virtual, kami berkolaborasi 
 Pembuatan aplikasi ini dilakukan pada platform Windows 10
 
 # Catatan :
-Penyimpanan gambar masih bersifat statis. jadi perlu install XAMPP pada dengan lokasi penyimpanan default (c:/xampp)
+Penyimpanan gambar masih bersifat statis. jadi perlu install XAMPP pada dengan lokasi penyimpanan default (c:/xampp).
+Letakkan folder java (yang berada pada folder htdocs) di "c/xampp/htdocs/". Yang nantinya akan digunakan untuk keperluan gambar.
 
 ### Kelompok 1 :
 

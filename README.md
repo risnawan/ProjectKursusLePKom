@@ -16,7 +16,8 @@ Dalam memenuhi tugas Lepkom Kursus Mandiri Berbasis Virtual, kami berkolaborasi 
 Pembuatan aplikasi ini dilakukan pada platform Windows 10
 
 # Catatan :
-Penyimpanan gambar masih bersifat statis. jadi perlu install XAMPP pada dengan lokasi penyimpanan default (c:/xampp)
+Penyimpanan gambar masih bersifat statis. jadi perlu install XAMPP pada dengan lokasi penyimpanan default (c:/xampp).
+Letakkan folder java (yang berada pada folder htdocs) di "c/xampp/htdocs/". Yang nantinya akan digunakan untuk keperluan gambar.
 
 ### Kelompok 1 :
 

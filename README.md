@@ -29,4 +29,4 @@ Letakkan folder java (yang berada pada folder htdocs) di "c/xampp/htdocs/". Yang
 | Reky Rolen Kencana | 57413375 | 4IA07 |
 | Wandy | 59413226 | 4IA05 |
 
-**Pembimbing : Ahmad Hidayat,Skom,MMSI**
+**Pembimbing : Ahmad Hidayat, SKom., MMSi.**

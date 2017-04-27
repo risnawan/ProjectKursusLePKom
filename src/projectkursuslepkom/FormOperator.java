@@ -433,40 +433,7 @@ public class FormOperator extends javax.swing.JFrame {
         return nominal;
     }
     
-    private void gaktau(){ 
-    //       String h_dewasa,h_anak, sh = null;
-//       int anak, dewasa, total;
-//        try {
-//            Connection conn = (Connection)Koneksi.konek();
-//            java.sql.Statement stm = conn.createStatement();
-//            java.sql.ResultSet rs = stm.executeQuery("select Dewasa, Anak from harga_tiket");
-//           
-//            
-//            while(rs.next()){
-//                h_dewasa = rs.getString("Dewasa");
-//                h_anak = rs.getString("Anak");
-//                
-//                anak = Integer.parseInt(txtAnak.getText()) * Integer.parseInt(h_anak);
-//                dewasa = Integer.parseInt(txtDewasa.getText()) * Integer.parseInt(h_dewasa);
-//                total = anak + dewasa;
-//                sh = Integer.toString(total);
-//               
-//            }
-//                       
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FormFauna.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        try {
-//               
-//            java.sql.Connection conn = (java.sql.Connection)Koneksi.konek();
-////            java.sql.PreparedStatement pst = conn.prepareStatement(query);
-////            pst/.execute();
-//            JOptionPane.showMessageDialog(rootPane, "Rp. " + sh + " Total Pembayaran", "Total Pembayaran", JOptionPane.INFORMATION_MESSAGE);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
-//        }
-    }
+    
     
     /**
      * @param args the command line arguments

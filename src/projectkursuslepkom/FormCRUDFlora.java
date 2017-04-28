@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 //import java.io.BufferedInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import static projectkursuslepkom.FormCRUDFauna.opsi;
 import static projectkursuslepkom.FormCRUDKaryawan.idKaryawan;
 
 //import java.io.DataInputStream;
@@ -253,8 +254,13 @@ public class FormCRUDFlora extends javax.swing.JFrame {
         String ringkasan = txtRingkasan.getText();
         String tinggi = txtTinggi.getText();
         
-        String query = "insert into flora values('"+id+"','"+nama+"','"+ringkasan+"','"+tinggi+"','"+foto+"')";
-        
+        String query = "";
+        if(opsi=="tambah"){
+             query = "insert into flora values('"+id+"','"+nama+"','"+tinggi+"','"+ringkasan+"','"+foto+"')";
+        }
+        else if(opsi=="edit"){
+            query = "UPDATE flora SET nama='"+nama+"',ringkasan='"+ringkasan+"',tinggi='"+tinggi+"',foto='"+foto+"' WHERE id_flora="+id;
+        }
         try {
             connect.getStatement().executeUpdate(query);
             JOptionPane.showMessageDialog(null, "record telah berhasil dimasukkan");
@@ -271,6 +277,7 @@ public class FormCRUDFlora extends javax.swing.JFrame {
             }            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan");
+            System.out.println(e);
         }       
         
     }//GEN-LAST:event_jbSimpanActionPerformed
